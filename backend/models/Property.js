@@ -24,7 +24,16 @@ const PropertySchema = new Schema(
       type: Number,
       required: true,
     },
-    imageURls: [String],
+    imageUrls: {
+      type: [String],
+      required: true,
+      validate: {
+        validator: function(arr) {
+          return arr.length > 0;
+        },
+        message: 'The imageUrls array must contain at least one URL.',
+      },
+    },
   },
   { timestamps: true }
 );
