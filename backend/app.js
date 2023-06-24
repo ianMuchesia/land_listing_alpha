@@ -19,6 +19,7 @@ const bodyParser = require("body-parser");
 const connectDB = require("./database/connectDB");
 
 //routers
+const propertyRouter = require("./routes/propertyRoutes")
 
 
 //middleware
@@ -45,12 +46,13 @@ app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
 app.use(express.json());
 
 //routes
+app.use("/properties", propertyRouter)
 
 app.use(errorHandlerMiddleWare);
 app.use(notFoundMiddleWare);
 
 //server
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 4000
 const start = async () => {
   try {
     connectDB(process.env.MONGO_URI);
