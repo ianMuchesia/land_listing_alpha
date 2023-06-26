@@ -6,7 +6,7 @@ const Footer = () => {
     <p>
       &copy; <span id="date">{new Date().getFullYear()}</span>
       <span className="footer-logo">{" "}Logo</span> Built by
-      <p className='footer-name'>Land listings Co.</p>
+      <span className='footer-name'>Land listings Co.</span>
     </p>
   </footer>
   )

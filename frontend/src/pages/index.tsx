@@ -1,10 +1,19 @@
+import { typeProperties } from '@/@types/@types'
 import ChooseUs from '@/components/ChooseUs'
 import Hero from '@/components/Hero'
+import Property from '@/components/Property'
+import axios from 'axios'
 import Head from 'next/head'
 import Image from 'next/image'
+import { useEffect } from 'react'
 
+interface Props{
+  properties:typeProperties[];
+}
+export default function Home({properties}:Props) {
+  
+  
 
-export default function Home() {
   return (
     <>
       <Head>
@@ -15,9 +24,34 @@ export default function Home() {
       </Head>
       <main className="wrapper">
     <Hero/>
+    <div className="property-heading">
+      <h2>Featured</h2>
+      </div>
+    <div className="property-container">
+    {properties && properties.map(property=>(
+      <Property key={property._id} property={property}/>
+    )) }
+    </div>
     <ChooseUs/>
+    
       
       </main>
     </>
   )
+}
+
+
+export const getServerSideProps = async()=>{
+  try {
+    const {data} = await axios.get("http://localhost:4000/api/v1/properties")
+    const properties = data.slice(0,5);
+
+    return{
+      props: {properties},
+    }
+  } catch (error) {
+    return {
+      props: { error: 'Failed to fetch properties' },
+    };
+  }
 }
