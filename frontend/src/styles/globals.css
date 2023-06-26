@@ -459,6 +459,10 @@ Hero
   .hero-btn{
     margin: 2rem 0rem;
   }
+  .hero-text p{
+ 
+    font-size: 1em;
+  }
 
 }
 
