@@ -1,3 +1,5 @@
+import ChooseUs from '@/components/ChooseUs'
+import Hero from '@/components/Hero'
 import Head from 'next/head'
 import Image from 'next/image'
 
@@ -12,7 +14,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="wrapper">
-       <h1>Hello World</h1>
+    <Hero/>
+    <ChooseUs/>
       
       </main>
     </>
