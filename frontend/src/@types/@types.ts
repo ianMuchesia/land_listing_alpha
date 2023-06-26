@@ -13,5 +13,6 @@ export interface userAuth {
     category:string;
     area:number;
     imageUrls:string[];
+    location: string;
     
 }
