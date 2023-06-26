@@ -567,6 +567,99 @@ Features
 
 /*
 =============== 
+Properties Page
+===============
+*/
+.properties__header{
+  display: flex;
+  flex-direction: column;
+  gap:0.5em;
+}
+.properties__header h4, .properties__header h5{
+  font-size: 400;
+  font-family: 'Montserrat', sans-serif;
+}
+.properties__header-buttons{
+  display: flex;
+  padding: 1em 0em;
+  justify-content: space-between;
+  align-items: center;
+}
+.properties__header-buttons button{
+  background: none;
+  border: 1px solid var(--purple-400);
+  padding: 0.4em 1em;
+  font-size: 1rem;
+  border-radius: 8px;
+  color: var(--purple-500);
+}
+.properties__refine{
+  background: #f1f1f1;
+  padding: 2em;
+}
+.properties__refine-form{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap:1em;
+}
+.properties__refine-form select{
+  background: none;
+  border: 1px solid var(--purple-400);
+  padding: 0.4em 1em;
+  font-size: 1rem;
+  border-radius: 8px;
+  color: var(--purple-500);
+}
+.properties__refine-form .input__price{
+  display: flex;
+  flex-direction: column;
+  gap:0.5em;
+  align-items: flex-start;
+
+}
+.input__price input{
+  background: none;
+  border: 1px solid var(--purple-400);
+  padding: 0.4em 1em;
+  font-size: 1rem;
+  border-radius: 8px;
+  color: var(--purple-500);
+}
+.input__size{
+  display: flex;
+  flex-direction: column;
+  gap: 0.4em;
+
+
+}
+.input__size input{
+  background: none;
+  border: 1px solid var(--purple-400);
+  padding: 0.4em 1em;
+  font-size: 1rem;
+  border-radius: 8px;
+  color: var(--purple-500);
+}
+.properties__refine-form-btn{
+  display: flex;
+  flex-direction: column;
+  gap: 0.4em;
+}
+.input__refine-btn{
+  border: 1px solid var(--purple-400);
+  padding: 0.4em 5em;
+  font-size: 1.3rem;
+  border-radius: 8px;
+}
+@media screen and (min-width:768px){
+  .input__size{
+    flex-direction: row;
+    gap:2em;
+  }
+}
+/*
+=============== 
 Footer
 ===============
 */

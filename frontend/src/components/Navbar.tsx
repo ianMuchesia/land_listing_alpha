@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React, { useState } from 'react'
 import {AiOutlineMenu, AiOutlineClose} from "react-icons/ai"
 const Navbar = () => {
@@ -19,7 +20,7 @@ const Navbar = () => {
         <ul className={`${toggle?"show-links": ""} nav-links`}>
    <li className="nav-link">Home</li>
    <li className="nav-link">About</li>
-   <li className="nav-link">Properties</li>
+   <li className="nav-link"><Link href="/properties">Properties</Link></li>
    <li className="nav-link contact-link">
     <button className="btn">Login</button>
    </li>
