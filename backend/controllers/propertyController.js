@@ -4,6 +4,7 @@ const { StatusCodes } = require("http-status-codes");
 
 const getSingleProperty = async (req, res) => {
   const { id } = req.params;
+  
 
   const property = await Property.findById(id);
 
@@ -11,7 +12,7 @@ const getSingleProperty = async (req, res) => {
     throw new NotFoundError(`No property found matching the id:${id}`);
   }
 
-  res.status(StatusCodes).json(property);
+  res.status(StatusCodes.OK).json(property);
 };
 
 const getAllProducts = async (req, res) => {

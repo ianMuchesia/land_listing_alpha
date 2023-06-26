@@ -46,7 +46,7 @@ app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
 app.use(express.json());
 
 //routes
-app.use("/properties", propertyRouter)
+app.use("/api/v1/properties", propertyRouter)
 
 app.use(errorHandlerMiddleWare);
 app.use(notFoundMiddleWare);
