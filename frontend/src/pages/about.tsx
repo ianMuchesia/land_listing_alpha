@@ -17,6 +17,9 @@ const about = () => {
         Discover your dream property and connect with trusted sellers through Land Listing.
         </p>
         </div>
+        <div className="about__content">
+          
+        </div>
       </div>
    </>
   )
