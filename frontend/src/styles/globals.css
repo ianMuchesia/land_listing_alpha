@@ -217,7 +217,7 @@ select:focus {
 }
 
 select:hover {
-  background-color: var(--orange-200);
+  background-color: var(--purple-200);
 }
 
 /* form */
@@ -390,7 +390,6 @@ Navbar
   }
 }
 
-
 /*
 =============== 
 Hero
@@ -472,7 +471,7 @@ Choose Us
   align-items: center;
   padding: 1em;
   cursor: pointer;
- 
+
   transition: 0.4s ease-in-out;
 }
 .choose__us-icon {
@@ -503,65 +502,56 @@ Choose Us
 Features
 ===============
 */
-.property-heading{
+.property-heading {
   text-align: center;
   margin: 40px 0px;
- color: --black;
-
+  color: --black;
 }
-.property-heading h2{
+.property-heading h2 {
   font-size: 40px;
   font-weight: 800;
 }
-.property-heading p{
+.property-heading p {
   font-size: 16px;
   font-weight: 200;
 }
 
-
-.property-container{
-
+.property-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 15px;
   margin-top: 20px;
   width: 100%;
-  
 }
-.property-card{
+.property-card {
   background: #f1f1f1;
- cursor: pointer;
+  cursor: pointer;
   transform: scale(1, 1);
   transition: transform 0.5s ease;
   border: 2px solid var(--white);
- 
-
 }
 
-.property-card:hover{
-  transform: scale(1.01,1.05);
+.property-card:hover {
+  transform: scale(1.01, 1.05);
   background-color: var(--purple-500);
   color: var(--white);
   border: none;
-
 }
-.property-image{
-
- background-color: #ebebeb;
+.property-image {
+  background-color: #ebebeb;
   transform: scale(1, 1);
   transition: transform 0.5s ease;
 }
 
-.property-name{
+.property-name {
   font-weight: 500;
 }
-.property-price{
+.property-price {
   font-weight: 800;
   margin-top: 6px;
-  
 }
-.property-contents{
+.property-contents {
   padding: 2em 1em;
 }
 
@@ -570,22 +560,23 @@ Features
 Properties Page
 ===============
 */
-.properties__header{
+.properties__header {
   display: flex;
   flex-direction: column;
-  gap:0.5em;
+  gap: 0.5em;
 }
-.properties__header h4, .properties__header h5{
+.properties__header h4,
+.properties__header h5 {
   font-size: 400;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
-.properties__header-buttons{
+.properties__header-buttons {
   display: flex;
   padding: 1em 0em;
   justify-content: space-between;
   align-items: center;
 }
-.properties__header-buttons button{
+.properties__header-buttons button {
   background: none;
   border: 1px solid var(--purple-400);
   padding: 0.4em 1em;
@@ -593,17 +584,25 @@ Properties Page
   border-radius: 8px;
   color: var(--purple-500);
 }
-.properties__refine{
+.properties__header-sort{
+  background: none;
+  border: 1px solid var(--purple-400);
+  padding: 0.4em 1em;
+  font-size: 1rem;
+  border-radius: 8px;
+  color: var(--purple-500);
+}
+.properties__refine {
   background: #f1f1f1;
   padding: 2em;
 }
-.properties__refine-form{
+.properties__refine-form {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap:1em;
+  gap: 1em;
 }
-.properties__refine-form select{
+.properties__refine-form select {
   background: none;
   border: 1px solid var(--purple-400);
   padding: 0.4em 1em;
@@ -611,14 +610,13 @@ Properties Page
   border-radius: 8px;
   color: var(--purple-500);
 }
-.properties__refine-form .input__price{
+.properties__refine-form .input__price {
   display: flex;
   flex-direction: column;
-  gap:0.5em;
+  gap: 0.5em;
   align-items: flex-start;
-
 }
-.input__price input{
+.input__price input {
   background: none;
   border: 1px solid var(--purple-400);
   padding: 0.4em 1em;
@@ -626,38 +624,99 @@ Properties Page
   border-radius: 8px;
   color: var(--purple-500);
 }
-.input__size{
-  display: flex;
-  flex-direction: column;
-  gap: 0.4em;
-
-
-}
-.input__size input{
-  background: none;
-  border: 1px solid var(--purple-400);
-  padding: 0.4em 1em;
-  font-size: 1rem;
-  border-radius: 8px;
-  color: var(--purple-500);
-}
-.properties__refine-form-btn{
+.input__size {
   display: flex;
   flex-direction: column;
   gap: 0.4em;
 }
-.input__refine-btn{
+.input__size input {
+  background: none;
+  border: 1px solid var(--purple-400);
+  padding: 0.4em 1em;
+  font-size: 1rem;
+  border-radius: 8px;
+  color: var(--purple-500);
+}
+.properties__refine-form-btn {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4em;
+}
+.input__refine-btn {
   border: 1px solid var(--purple-400);
   padding: 0.4em 5em;
   font-size: 1.3rem;
   border-radius: 8px;
 }
-@media screen and (min-width:768px){
-  .input__size{
+@media screen and (min-width: 768px) {
+  .input__size {
     flex-direction: row;
-    gap:2em;
+    gap: 2em;
   }
 }
+
+/*
+=============== 
+properties page card
+===============
+
+*/
+
+.properties__page-card {
+  display: flex;
+  flex-direction: column;
+  margin: 2em 0em;
+  background: #f1f1f1;
+}
+.properties__page-image-container {
+  position: relative;
+  height: 300px;
+}
+.properties__page-main-image {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.properties__page-absolute-span {
+  position: absolute;
+  top: 2%;
+  right: 2%;
+}
+.properties__page-icon {
+  font-size: 3rem;
+  color: var(--purple-500);
+  transition: 0.4s ease-in-out;
+  cursor: pointer;
+}
+.properties__page-absolute-span .properties__page-icon:hover {
+  transform: scale(1.2);
+}
+.properties__page-card-contents {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1.5em;
+}
+.properties__page-card-icons {
+  align-self: flex-end;
+  display: flex;
+  gap: 1em;
+}
+.properties__page-card-icons .properties__page-icon {
+  font-size: 2rem;
+  color: #0f5132;
+
+}
+@media screen and (min-width:1050px) {
+  .properties__page-card {
+    flex-direction: row;
+  }
+  .properties__page-main-image{
+    width: 500px;
+  }
+  
+}
+
 /*
 =============== 
 Footer
