@@ -1,11 +1,38 @@
 import { typeProperties } from "@/@types/@types";
-import React from "react";
+import React, {useReducer, useState} from "react";
 import { Icon } from "@iconify/react";
 import properties from "@/pages/properties";
+
+import { Email, Phone, Whatsapp } from "./modals";
 interface Props {
   property: typeProperties;
 }
+
+
+
 const RefineProperty = ({ property }: Props) => {
+
+  const [modalState, setModalState] = useState({
+    isModalOpen1: false,
+    isModalOpen2: false,
+    isModalOpen3: false,
+  });
+
+  const openModal = (modalName: string) => {
+    setModalState((prevState) => ({
+      ...prevState,
+      [modalName]: true,
+    }));
+  };
+
+  const closeModal = (modalName: string) => {
+    console.log("here")
+    setModalState((prevState) => ({
+      ...prevState,
+      [modalName]: false,
+    }));
+  };
+
   return (
     <div className="properties__page-card">
       <div className="properties__page-image-container">
@@ -29,9 +56,14 @@ const RefineProperty = ({ property }: Props) => {
           {property.description}
         </p>
         <div className="properties__page-card-icons">
-        <Icon icon="material-symbols:call" className="properties__page-icon"/>
-        <Icon icon="uiw:message" className="properties__page-icon"/>
-        <Icon icon="ic:baseline-whatsapp" className="properties__page-icon"/>
+        <Icon icon="material-symbols:call" className="properties__page-icon" onClick={()=>{openModal("isModalOpen1")}}/>
+        <Icon icon="uiw:message" className="properties__page-icon" onClick={()=>{openModal("isModalOpen2")}}/>
+        <Icon icon="ic:baseline-whatsapp" className="properties__page-icon" onClick={()=>{openModal("isModalOpen3")}}/>
+        </div>
+        <div className="">
+          {modalState.isModalOpen1 && <Phone property={property} closeModal={closeModal}/>}
+          {modalState.isModalOpen2 && <Email  property={property} closeModal={closeModal}/>}
+          {/* {modalState.isModalOpen3 && <Whatsapp  property={property} closeModal={closeModal}/>} */}
         </div>
       </div>
     </div>
