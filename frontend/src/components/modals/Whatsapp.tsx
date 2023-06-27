@@ -1,19 +1,18 @@
 import React from 'react'
+import { Icon } from '@iconify/react';
+
 interface Props{
     closeModal: (modalName: string) => void;
 }
-const Phone = ({closeModal}:Props) => {
+const Whatsapp = ({closeModal}:Props) => {
   return (
     <aside className='modal-overlay'>
     <div className='modal-container'>
-      
+      <span className='modal-close' onClick={()=>{closeModal("isModalOpen3")}}><Icon icon="material-symbols:close" className='properties__page-icon'/></span>
       <div className='modal-content'>
-          <h4>Modal</h4>
-          <p>cooking instructions</p>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam, earum.</p>
-          <a href="google.com" target='_blank'>Original Source</a>
-          <button className='btn btn-hipster close-btn'
-          onClick={()=>{closeModal("isModalOpen3")}}> close</button>
+      
+         <h3>Whatsapp APi connection</h3>
+        
       </div>
 
      </div>
@@ -21,4 +20,4 @@ const Phone = ({closeModal}:Props) => {
   )
 }
 
-export default Phone
+export default Whatsapp

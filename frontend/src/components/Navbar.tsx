@@ -18,11 +18,12 @@ const Navbar = () => {
           </button>
         </div>
         <ul className={`${toggle?"show-links": ""} nav-links`}>
-   <li className="nav-link">Home</li>
+   <li ><Link href="/" className="nav-link">Home</Link></li>
    <li className="nav-link">About</li>
-   <li className="nav-link"><Link href="/properties">Properties</Link></li>
-   <li className="nav-link contact-link">
-    <button className="btn">Login</button>
+   <li ><Link href="/properties" className="nav-link">Properties</Link></li>
+   <li className="contact-link">
+   <Link href="/Login" className="nav-link"><button className="btn">Login</button></Link>
+    
    </li>
     </ul>
     </div>
