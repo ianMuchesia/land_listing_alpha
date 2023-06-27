@@ -80,7 +80,7 @@ html {
   --letterSpacing: 1px;
   --transition: 0.3s ease-in-out all;
   --max-width: 1120px;
-  --fixed-width: 800px;
+  --fixed-width: 1000px;
 
   /* box shadow*/
   --shadow-1: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
@@ -184,11 +184,12 @@ ul {
   border: transparent;
   border-radius: var(--borderRadius);
   letter-spacing: var(--letterSpacing);
-  padding: 0.375rem 0.75rem;
+  padding: 0.775em 1.25em;
   box-shadow: var(--shadow-1);
   transition: var(--transtion);
   text-transform: capitalize;
   display: inline-block;
+  font-size: 1rem;
 }
 .btn:hover {
   background: var(--purple-700);
@@ -901,11 +902,111 @@ Login Sign Up
 }
 /*
 =============== 
-Footer
+Container
+===============
+*/
+.create-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+ 
+  background: var(--white);
+  border-radius: var(--borderRadius);
+  box-shadow: var(--shadow-2);
+  padding: 2rem 2.5rem;
+  margin: 3rem auto;
+}
+.create_image-upload-container{
+  
+  margin: 1em;
+  display: flex;
+  flex-direction: column;
+
+}
+.create_image-upload-container h4{
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  margin: 0.5em;
+}
+
+.create__image-container_2{
+  margin: 1em;
+}
+.image-container-2{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap:2em;
+
+}
+
+
+
+@media screen and (min-width: 768px){
+  .create-container{
+  flex-direction: row;
+  }
+  .create_image-upload-container{
+    max-width: 50%;
+  }
+}
+
+/*
+=============== 
+image-upload
 ===============
 */
 
 
+.main__image-upload-container{
+  display: flex;
+  flex-direction: column;
+  background-color: var(--grey-500);
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+  padding: .5em 0.5em;
+  color: var(--white);
+  border: 2px dotted var(--grey-600);
+}
+
+.main__image-upper-section{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.main__image-upload-container p{
+  font-size: 0.5rem;
+}
+.main__image-upper-section p{
+  font-size: 0.7rem;
+}
+
+.main__image-upload-icon{
+  font-size: 2rem;
+}
+.main__image-upload-container input{
+  height: 0;
+  width: 0;
+}
+
+.main__image-text-recommend{
+  font-size: 0.75rem;
+  text-align: center;
+  margin-top: 2rem;
+}
+.main__image-settings-btn{
+  display: grid;
+  place-items: center;
+  margin-top: 2em;
+}
+/*
+=============== 
+Footer
+===============
+*/
 .page-footer {
   text-align: center;
   height: 4rem;
