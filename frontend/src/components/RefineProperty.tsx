@@ -63,7 +63,7 @@ const RefineProperty = ({ property }: Props) => {
         <div className="">
           {modalState.isModalOpen1 && <Phone property={property} closeModal={closeModal}/>}
           {modalState.isModalOpen2 && <Email  property={property} closeModal={closeModal}/>}
-          {/* {modalState.isModalOpen3 && <Whatsapp  property={property} closeModal={closeModal}/>} */}
+          {modalState.isModalOpen3 && <Whatsapp  closeModal={closeModal}/>}
         </div>
       </div>
     </div>
