@@ -19,7 +19,7 @@ const Navbar = () => {
         </div>
         <ul className={`${toggle?"show-links": ""} nav-links`}>
    <li ><Link href="/" className="nav-link">Home</Link></li>
-   <li className="nav-link">About</li>
+   <li ><Link href="/about" className="nav-link">About</Link></li>
    <li ><Link href="/properties" className="nav-link">Properties</Link></li>
    <li ><Link href="/create" className="nav-link">Create</Link></li>
    <li className="contact-link">
