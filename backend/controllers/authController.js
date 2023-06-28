@@ -2,7 +2,7 @@ const { StatusCodes } = require("http-status-codes")
 const { BadRequestError } = require("../errors")
 const User = require("../models/User")
 const { createToken, attachCookiesToResponse } = require("../utils")
-
+const passport = require('passport')
 
 
 const register = async(req, res)=>{
@@ -30,6 +30,9 @@ const register = async(req, res)=>{
 
 }
 
+const GoogleSignIn = async(req, res)=>{
+        console.log(req.user)
+}
 
 const login = async(req, res)=>{
    const { email , password} = req.body
@@ -77,5 +80,6 @@ module.exports =  {
     register,
     login,
     logout,
-    showUser
+    showUser,
+    GoogleSignIn
 }

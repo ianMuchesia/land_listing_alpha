@@ -14,7 +14,8 @@ const xss = require("xss-clean");
 const cors = require("cors");
 const mongoSanitize = require("express-mongo-sanitize");
 const bodyParser = require("body-parser");
-
+const passport = require('passport');
+require("./utils/passport")
 //database
 const connectDB = require("./database/connectDB");
 
@@ -34,12 +35,28 @@ app.set("trust proxy", 1);
   })
 ); */
 
+
 app.use(helmet());
-app.use(cors({ origin: process.env.CLIENT_SIDE_URL, credentials: true }));
 app.use(xss());
 app.use(mongoSanitize());
 
 app.use(cookieParser(process.env.JWT_SECRET));
+app.use(session({
+	cookie:{
+		secure: true,
+		maxAge:24 * 60 * 60 * 1000,
+		   },
+	
+	secret: 'secret',
+	saveUninitialized: true,
+	resave: false
+	}));
+	
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(cors({ origin: process.env.CLIENT_SIDE_URL, credentials: true }));
+
 app.use(bodyParser.json({ limit: "10mb" }));
 app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
 app.use(express.json());
