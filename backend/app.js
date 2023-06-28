@@ -19,13 +19,12 @@ const bodyParser = require("body-parser");
 const connectDB = require("./database/connectDB");
 
 //routers
-const propertyRouter = require("./routes/propertyRoutes")
-
+const authRouter = require("./routes/authRoutes");
+const propertyRouter = require("./routes/propertyRoutes");
 
 //middleware
-const notFoundMiddleWare = require('./middleware/not-found')
-const errorHandlerMiddleWare = require('./middleware/error-handler')
-
+const notFoundMiddleWare = require("./middleware/not-found");
+const errorHandlerMiddleWare = require("./middleware/error-handler");
 
 app.set("trust proxy", 1);
 /* app.use(
@@ -46,13 +45,14 @@ app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
 app.use(express.json());
 
 //routes
-app.use("/api/v1/properties", propertyRouter)
+app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/properties", propertyRouter);
 
 app.use(errorHandlerMiddleWare);
 app.use(notFoundMiddleWare);
 
 //server
-const port = process.env.PORT || 4000
+const port = process.env.PORT || 4000;
 const start = async () => {
   try {
     connectDB(process.env.MONGO_URI);
