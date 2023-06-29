@@ -14,6 +14,9 @@ const Navbar = () => {
   const handleToggle = () => {
     setToggle((prevToggle) => !prevToggle);
   };
+  const handleCloseToggle=()=>{
+    setToggle(false)
+  }
   return (
     <nav className="navbar">
       <div className="nav-center">
@@ -28,27 +31,27 @@ const Navbar = () => {
           </button>
         </div>
         <ul className={`${toggle ? "show-links" : ""} nav-links`}>
-          <li>
+          <li onClick={handleCloseToggle}>
             <Link href="/" className="nav-link">
               Home
             </Link>
           </li>
-          <li>
+          <li onClick={handleCloseToggle}>
             <Link href="/about" className="nav-link">
               About
             </Link>
           </li>
-          <li>
+          <li onClick={handleCloseToggle}>
             <Link href="/properties" className="nav-link">
               Properties
             </Link>
           </li>
-          {user.user.role === "admin" && <li>
+          {user.user.role === "admin" && <li onClick={handleCloseToggle}>
             <Link href="/create" className="nav-link">
               Create
             </Link>
           </li>}
-          <li className="contact-link">
+          <li className="contact-link" onClick={handleCloseToggle}>
             {user.isAuthenticated ? (
               <>
                 <button className=" btn">{user.user.name}</button>

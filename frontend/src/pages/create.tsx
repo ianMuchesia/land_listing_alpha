@@ -1,15 +1,22 @@
 import Head from 'next/head'
-import React from 'react'
-import { Icon } from '@iconify/react';
-import ImageContainer from '@/components/ImageContainer';
+import React, { useEffect } from 'react'
+
+
 import useAuthorization from '@/utils/authorize';
-import { useAppSelector } from './redux/Hooks';
+import { useAppDispatch, useAppSelector } from './redux/Hooks';
+import ImagesUpload from '@/components/ImagesUpload';
+import checkAuthentication from './redux/services/authCheck';
 const create = () => {
 
  
 
+  const dispatch = useAppDispatch()
+
+  // useAuthorization(user.role) 
+
+  useEffect(()=>{dispatch(checkAuthentication()); }, [])
   const user = useAppSelector(state=>state.auth.user)
-  useAuthorization(user.role)
+  
   console.log(user)
   return (
     <>
@@ -23,23 +30,7 @@ const create = () => {
         <h2>Administrator Page</h2>
         <h3>Welcome {user.name}</h3>
         <div className="create-container">
-        <div className="create_image-upload-container">
-       
-            <div className="create__image-container_1">
-              <h4>Main Image</h4>
-          <ImageContainer/>
-    
-            </div>
-            <div className="create__image-container_2">
-              <h4>Other Images</h4>
-              <div className="image-container-2">
-            <input type="file" name={`shop-image`} />
-            <input type="file" name={`shop-image`} />
-            <input type="file" name={`shop-image`} />
-            <input type="file" name={`shop-image`} />
-            </div>
-            </div>
-        </div>
+      <ImagesUpload/>
         <div className="create_property-container ">
           <h4>Property Details</h4>
             <div className="create__property-input-name">

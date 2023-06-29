@@ -17,7 +17,6 @@ export default function Home({ properties }: Props) {
   useEffect(() => {
     dispatch(checkAuthentication());
   }, []);
-
   return (
     <>
       <Head>
