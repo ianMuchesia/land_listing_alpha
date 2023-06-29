@@ -894,8 +894,13 @@ Login Sign Up
   width: 100%;
   border-radius: 0.5rem;
   text-transform: uppercase;
+  cursor: pointer;
 }
-
+.submit:hover{
+  color: var(--purple-800);
+  background: var(--purple-100);
+  border: 2px solid purple;
+}
 .signup-link {
   color: #6B7280;
   font-size: 0.875rem;

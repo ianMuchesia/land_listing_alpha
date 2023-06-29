@@ -14,9 +14,9 @@ const login = () => {
     <link rel="icon" href="/favicon.ico" />
   </Head>
  
-    <div className="wrapper">
+    <main className="wrapper">
     <LoginForm/>
-   </div>
+   </main>
    </>
   )
 }

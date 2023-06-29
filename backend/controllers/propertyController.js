@@ -23,7 +23,7 @@ const getSingleProperty = async (req, res) => {
 };
 
 const getAllProperties = async (req, res) => {
-  const { location, search, sort, numericFilters, field } = req.query;
+  const {featured, location, search, sort, numericFilters, field } = req.query;
 
   const queryObject = {};
 

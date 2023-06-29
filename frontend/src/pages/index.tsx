@@ -12,7 +12,9 @@ interface Props{
 }
 export default function Home({properties}:Props) {
   
-  
+
+
+
 
   return (
     <>
@@ -43,7 +45,9 @@ export default function Home({properties}:Props) {
 
 export const getServerSideProps = async()=>{
   try {
+    
     const {data} = await axios.get("http://localhost:4000/api/v1/properties")
+  
     const properties = data.slice(0,5);
 
     return{
