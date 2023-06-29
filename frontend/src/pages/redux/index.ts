@@ -1,10 +1,11 @@
 import { configureStore} from "@reduxjs/toolkit"
+import loadSlice from "./Features/loadSlice";
 
 
 
 export const store = configureStore({
     reducer:{
-
+        load: loadSlice,
     }
 })
 

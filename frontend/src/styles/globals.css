@@ -1150,3 +1150,55 @@ Footer
 .page-footer .footer-name {
   color: var(--primary-500);
 }
+
+
+/*
+=============== 
+Loader
+===============
+*/
+.loading{
+  position: absolute;
+  top: 0%;
+  right: 20%;
+  z-index: 9999;
+}
+.loading-spinner-rolling-container {
+  
+  width: 200px;
+  height: 200px;
+  display: inline-block;
+  overflow: hidden;
+  background:none;
+}
+.loading-spinner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform: translateZ(0) scale(1);
+  backface-visibility: hidden;
+  transform-origin: 0 0; /* see note above */
+}
+
+.loading-spinner div {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border: 5px solid var(--purple-500);
+  border-top-color: transparent;
+  border-radius: 50%;
+}
+.loading-spinner div {
+  animation: loading-spinner 1s linear infinite;
+  top: 100px;
+  left: 100px
+}
+
+
+.loading-spinner div { box-sizing: content-box; }
+
+
+@keyframes loading-spinner {
+  0% { transform: translate(-50%,-50%) rotate(0deg); }
+  100% { transform: translate(-50%,-50%) rotate(360deg); }
+}

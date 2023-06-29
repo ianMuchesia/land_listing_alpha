@@ -3,6 +3,7 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Loader from "./Loader/Loader";
 
 
 
@@ -59,8 +60,11 @@ const LoginForm = () => {
   };
   return (
     <>
+   
     <ToastContainer/>
+   
       <form className="form" onSubmit={handleSubmit}>
+      
         <p className="form-title">Sign in to your account</p>
         <div className="input-container">
           <input

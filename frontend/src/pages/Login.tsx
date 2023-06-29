@@ -2,6 +2,7 @@ import Head from 'next/head'
 import React from 'react'
 import Link from 'next/link'
 import LoginForm from '@/components/LoginForm'
+import Loader from '@/components/Loader/Loader'
 
 
 const login = () => {
@@ -13,7 +14,7 @@ const login = () => {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" href="/favicon.ico" />
   </Head>
- 
+  <Loader/>
     <main className="wrapper">
     <LoginForm/>
    </main>
