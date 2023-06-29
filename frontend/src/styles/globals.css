@@ -1157,16 +1157,20 @@ Footer
 Loader
 ===============
 */
-.loading{
+/* .loading{
   position: absolute;
-  top: 0%;
-  right: 20%;
+  top: 1%;
+  right: 40%;
   z-index: 9999;
+} */
+.loading h3{
+  text-align: center;
+  margin-bottom: -50px;
 }
 .loading-spinner-rolling-container {
   
-  width: 200px;
-  height: 200px;
+  width: 150px;
+  height: 150px;
   display: inline-block;
   overflow: hidden;
   background:none;
@@ -1201,4 +1205,13 @@ Loader
 @keyframes loading-spinner {
   0% { transform: translate(-50%,-50%) rotate(0deg); }
   100% { transform: translate(-50%,-50%) rotate(360deg); }
+}
+
+@media screen and (min-width: 600px) {
+  /* .loading{
+    position: absolute;
+    top: 1%;
+    right: 25%;
+    z-index: 9999;
+  } */
 }

@@ -4,10 +4,18 @@ import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loader from "./Loader/Loader";
-
-
+import { useAppDispatch, useAppSelector } from "@/pages/redux/Hooks";
+import {
+  setCloseLoader,
+  setFormLoader,
+} from "@/pages/redux/Features/loadSlice";
+import { useRouter } from "next/router";
 
 const LoginForm = () => {
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+  const formLoader = useAppSelector((state) => state.load.formLoader);
+
   const [loginForm, setLoginForm] = useState({
     email: "",
     password: "",
@@ -27,8 +35,7 @@ const LoginForm = () => {
       toast.warn("please fill all the inputs");
       return;
     }
-
-    console.log("here i am")
+    dispatch(setFormLoader());
     try {
       const { data } = await axios.post(
         `http://localhost:4000/api/v1/auth/login`,
@@ -38,18 +45,24 @@ const LoginForm = () => {
         },
         { withCredentials: true, timeout: 5000 }
       );
-  
+      dispatch(setCloseLoader());
       toast.success("Login successful!");
 
-
-      setTimeout(() => {}, 2000);
+      setTimeout(() => {
+        router.push("/");
+        setLoginForm({
+          email: "",
+          password: "",
+        });
+      }, 2000);
     } catch (error: any) {
+      dispatch(setCloseLoader());
       console.log(error);
       console.log(error);
       if (error.code === "ECONNABORTED") {
         // handle timeout error
         toast.error("Request timed out. Please try again later.");
-        return
+        return;
       }
       if (error.response?.data?.msg) {
         toast.error(error.response.data.msg);
@@ -60,11 +73,10 @@ const LoginForm = () => {
   };
   return (
     <>
-   
-    <ToastContainer/>
-   
+      <ToastContainer />
+
       <form className="form" onSubmit={handleSubmit}>
-      
+        {formLoader && <Loader />}
         <p className="form-title">Sign in to your account</p>
         <div className="input-container">
           <input
@@ -88,7 +100,7 @@ const LoginForm = () => {
           />
         </div>
         <button className="submit">Sign in</button>
-   
+
         <p className="signup-link">
           No account?
           <Link href="/Signup">Sign up</Link>
