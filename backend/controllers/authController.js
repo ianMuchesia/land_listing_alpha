@@ -18,7 +18,7 @@ const register = async(req, res)=>{
     if(EmailExists){
         throw new BadRequestError("Email Provided Already Exists")
     }
-    console.log("hey")
+ 
     const user = await User.create(req.body)
     
     const tokenUser = createToken(user)

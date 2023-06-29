@@ -1,7 +1,9 @@
 import Head from 'next/head'
-import React, {ReactNode} from 'react'
+import React, {ReactNode, useEffect} from 'react'
 import Navbar from './Navbar'
 import Footer from './Footer'
+import { useAppDispatch } from '@/pages/redux/Hooks';
+import checkAuthentication from '@/pages/redux/services/authCheck';
 
 
 interface LayoutProps {
@@ -9,6 +11,8 @@ interface LayoutProps {
   }
 
 const Layout = ({ children }:LayoutProps) => {
+ 
+
     return (
       <div className="">
         <Head>

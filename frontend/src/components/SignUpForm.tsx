@@ -1,110 +1,155 @@
-import axios from 'axios'
-import Link from 'next/link'
-import React, { useState } from 'react'
-
+import axios from "axios";
+import Link from "next/link";
+import React, { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Loader from "./Loader/Loader";
+import { useAppDispatch, useAppSelector } from "@/pages/redux/Hooks";
+import {
+  setCloseLoader,
+  setFormLoader,
+} from "@/pages/redux/Features/loadSlice";
+import { useRouter } from "next/router";
+import { setIsAuthenticated } from "@/pages/redux/Features/authSlice";
 
 const SignUpForm = () => {
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+  const formLoader = useAppSelector((state) => state.load.formLoader);
 
+  const [signUpForm, setSignUpForm] = useState({
+   firstName:"",
+   secondName:"",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
 
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSignUpForm((prevForm) => ({
+      ...prevForm,
+      [event.target.name]: event.target.value,
+    }));
+  };
 
-    const [ signUpForm , setSignUpForm] = useState({
-        name:"",
-        email:"",
-        password:"",
-        confirmPassword:"",
-      })
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const { firstName,secondName, email, password, confirmPassword } = signUpForm;
+    if (!firstName || !secondName|| !email || !password || !confirmPassword) {
+      toast.warn("please fill all the inputs");
+      return;
+    }
+    if (password !== confirmPassword) {
+      toast.warn("passwords did not match");
+      return;
+    }
+    dispatch(setFormLoader());
+    try {
+      const { data } = await axios.post(
+        `http://localhost:4000/api/v1/auth/register`,
+        {
+          name: firstName + " " + secondName,
+          email,
+          password,
+        },
+        { withCredentials: true, timeout: 5000 }
+      );
 
-      const handleChange= (event:React.ChangeEvent<HTMLInputElement>)=>{
-        setSignUpForm(prevForm=>({
-          ...prevForm,
-          [event.target.name]:event.target.value
-        }))
+      dispatch(setCloseLoader());
+      toast.success("Sign Up successful!");
+
+      setTimeout(() => {
+        dispatch(setIsAuthenticated(data.user))
+        router.push("/");
+        setSignUpForm({
+          firstName: "",
+          secondName: "",
+          email: "",
+          password: "",
+          confirmPassword: "",
+        });
+      }, 2000);
+    } catch (error: any) {
+      dispatch(setCloseLoader());
+      console.log(error);
+      console.log(error);
+      if (error.code === "ECONNABORTED") {
+        // handle timeout error
+        toast.error("Request timed out. Please try again later.");
+        return;
       }
-
-      const handleSubmit =async(event:React.FormEvent<HTMLFormElement>)=>{
-        event.preventDefault()
-        const {name, email, password, confirmPassword} = signUpForm
-        if(!name ||!email || !password ||!confirmPassword){
-        
-          return;
-        }
-        if (password !== confirmPassword) {
-       
-          return;
-        }
-        try {
-          const {data} = await axios.post(`${process.env.baseURL}auth/registerUser`,{
-            name,email, password
-          })
-          if(data.success){
-           
-    
-            setSignUpForm({
-              name: "",
-              email: "",
-              password: "",
-              confirmPassword: "",
-           
-            });
-          }
-        } catch (error:any) {
-          console.log(error);
-          if (error.response.data.msg) {
-         
-            return;
-          }
-         
-        }
-        }
-
-
+      if (error.response?.data?.msg) {
+        toast.error(error.response.data.msg);
+        return;
+      }
+      toast.error("Something wrong happened try again later");
+    }
+  };
   return (
-    <>  
-    <form className="form" onSubmit={handleSubmit}>
-    <p className="form-title">Sign up  to open your account</p>
-    <div className="input-container">
-       <input type="text" placeholder="Enter name"
-       name='name'
-        value={signUpForm.name}
-        onChange={handleChange}
-       />
-       <span>
-       </span>
-   </div>
-     <div className="input-container">
-       <input type="email" placeholder="Enter email"
-       name="email"
-       value={signUpForm.email}
-       onChange={handleChange}
-       />
-       <span>
-       </span>
-   </div>
-   <div className="input-container">
-       <input type="password" placeholder="Enter password"
-      name="password" 
-      value={signUpForm.password}
-      onChange={handleChange}
-      />
-     </div>
-     <div className="input-container">
-       <input type="password" placeholder="Confirm password"
-        name="confirmPassword" id="confirmPassword"
-        value={signUpForm.confirmPassword}
-        onChange={handleChange}
-       />
-     </div>
-      <button className="submit">
-     Sign Up
-   </button>
+    <>
+    <ToastContainer/>
+      <form className="form" onSubmit={handleSubmit}>
+      {formLoader && <Loader />}
+        <p className="form-title">Sign up to open your account</p>
 
-   <p className="signup-link">
-     Have an account?
-     <Link href="/Login">Sign in</Link>
-   </p>
-</form>
-</>
-  )
-}
+        <div className="input-container">
+          <input
+            type="text"
+            placeholder="Enter first name"
+            name="firstName"
+            value={signUpForm.firstName}
+            onChange={handleChange}
+          />
+          <span></span>
+        </div>
+        <div className="input-container">
+          <input
+            type="text"
+            placeholder="Enter second name"
+            name="secondName"
+            value={signUpForm.secondName}
+            onChange={handleChange}
+          />
+          <span></span>
+        </div>
+        <div className="input-container">
+          <input
+            type="email"
+            placeholder="Enter email"
+            name="email"
+            value={signUpForm.email}
+            onChange={handleChange}
+          />
+          <span></span>
+        </div>
+        <div className="input-container">
+          <input
+            type="password"
+            placeholder="Enter password"
+            name="password"
+            value={signUpForm.password}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="input-container">
+          <input
+            type="password"
+            placeholder="Confirm password"
+            name="confirmPassword"
+            id="confirmPassword"
+            value={signUpForm.confirmPassword}
+            onChange={handleChange}
+          />
+        </div>
+        <button className="submit">Sign Up</button>
 
-export default SignUpForm
+        <p className="signup-link">
+          Have an account?
+          <Link href="/Login">Sign in</Link>
+        </p>
+      </form>
+    </>
+  );
+};
+
+export default SignUpForm;
