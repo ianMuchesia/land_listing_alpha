@@ -1,20 +1,22 @@
-import { typeProperties } from '@/@types/@types'
-import ChooseUs from '@/components/ChooseUs'
-import Hero from '@/components/Hero'
-import Property from '@/components/Property'
-import axios from 'axios'
-import Head from 'next/head'
-import Image from 'next/image'
-import { useEffect } from 'react'
+import { typeProperties } from "@/@types/@types";
+import ChooseUs from "@/components/ChooseUs";
+import Hero from "@/components/Hero";
+import Property from "@/components/Property";
+import axios from "axios";
+import Head from "next/head";
+import Image from "next/image";
+import { useEffect } from "react";
+import { useAppDispatch } from "./redux/Hooks";
+import checkAuthentication from "./redux/services/authCheck";
 
-interface Props{
-  properties:typeProperties[];
+interface Props {
+  properties: typeProperties[];
 }
-export default function Home({properties}:Props) {
-  
-
-
-
+export default function Home({ properties }: Props) {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(checkAuthentication());
+  }, []);
 
   return (
     <>
@@ -25,37 +27,34 @@ export default function Home({properties}:Props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="wrapper">
-    <Hero/>
-    <div className="property-heading">
-      <h2>Featured</h2>
-      </div>
-    <div className="property-container">
-    {properties && properties.map(property=>(
-      <Property key={property._id} property={property}/>
-    )) }
-    </div>
-    <ChooseUs/>
-    
-      
+        <Hero />
+        <div className="property-heading">
+          <h2>Featured</h2>
+        </div>
+        <div className="property-container">
+          {properties &&
+            properties.map((property) => (
+              <Property key={property._id} property={property} />
+            ))}
+        </div>
+        <ChooseUs />
       </main>
     </>
-  )
+  );
 }
 
-
-export const getServerSideProps = async()=>{
+export const getServerSideProps = async () => {
   try {
-    
-    const {data} = await axios.get("http://localhost:4000/api/v1/properties")
-  
-    const properties = data.slice(0,5);
+    const { data } = await axios.get("http://localhost:4000/api/v1/properties");
 
-    return{
-      props: {properties},
-    }
+    const properties = data.slice(0, 5);
+
+    return {
+      props: { properties },
+    };
   } catch (error) {
     return {
-      props: { error: 'Failed to fetch properties' },
+      props: { error: "Failed to fetch properties" },
     };
   }
-}
+};

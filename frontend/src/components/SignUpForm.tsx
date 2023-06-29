@@ -10,6 +10,7 @@ import {
   setFormLoader,
 } from "@/pages/redux/Features/loadSlice";
 import { useRouter } from "next/router";
+import { setIsAuthenticated } from "@/pages/redux/Features/authSlice";
 
 const SignUpForm = () => {
   const router = useRouter();
@@ -58,6 +59,7 @@ const SignUpForm = () => {
       toast.success("Sign Up successful!");
 
       setTimeout(() => {
+        dispatch(setIsAuthenticated(data.user))
         router.push("/");
         setSignUpForm({
           firstName: "",

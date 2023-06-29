@@ -1,6 +1,6 @@
 const express = require("express");
 const { register, login, showUser, logout } = require("../controllers/authController");
-
+const { authorizePermission, authenticateUser } = require("../middleware/authentication");
 
 const router = express.Router();
 
@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.post('/register', register)
 router.post('/login', login)
-router.get('/showUser', showUser)
+router.get('/showUser',authenticateUser, showUser)
 router.get('/logout', logout)
 
 module.exports = router;

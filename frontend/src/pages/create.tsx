@@ -2,7 +2,15 @@ import Head from 'next/head'
 import React from 'react'
 import { Icon } from '@iconify/react';
 import ImageContainer from '@/components/ImageContainer';
+import useAuthorization from '@/utils/authorize';
+import { useAppSelector } from './redux/Hooks';
 const create = () => {
+
+ 
+
+  const user = useAppSelector(state=>state.auth.user)
+  useAuthorization(user.role)
+  console.log(user)
   return (
     <>
         <Head>
@@ -13,6 +21,7 @@ const create = () => {
       </Head>
       <div className="wrapper">
         <h2>Administrator Page</h2>
+        <h3>Welcome {user.name}</h3>
         <div className="create-container">
         <div className="create_image-upload-container">
        
