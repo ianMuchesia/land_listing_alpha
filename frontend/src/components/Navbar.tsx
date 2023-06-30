@@ -10,23 +10,29 @@ import {
 } from "react-icons/ai";
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; //
+import { Logout } from "./modals";
+
 
 
 
 const Navbar = () => {
-  const dispatch = useAppDispatch();
+ 
 
   const user = useAppSelector((state) => state.auth);
 
   const [toggle, setToggle] = useState(false);
-
+  const [ logoutModal , setLogoutModal] = useState(false)
   const handleToggle = () => {
     setToggle((prevToggle) => !prevToggle);
   };
   const handleCloseToggle = () => {
     setToggle(false);
   };
+
+ 
+ 
   return (
+    <header>
     <nav className="navbar">
       <div className="nav-center">
         <div className="nav-header">
@@ -62,26 +68,29 @@ const Navbar = () => {
               </Link>
             </li>
           )}
-          <li className="contact-link" onClick={handleCloseToggle}>
+          <li className="contact-link" >
             {user.isAuthenticated ? (
               <>
-                <div className="logout-link">
-                <Tippy content={<h5>Hello</h5>}>
-                  <BsFillPersonDashFill />
-                  </Tippy>
-                  {user.user.name}
+                <div className="logout-link" onClick={()=>{handleCloseToggle;setLogoutModal(true)}}>
+             
+                  <BsFillPersonDashFill className="logout-icon" />
+                
+                  <p>{user.user.name}</p>
                  
                 </div>
               </>
             ) : (
-              <Link href="/Login" className="nav-link">
+              <Link href="/Login" className="nav-link" onClick={handleCloseToggle}>
                 <button className="btn">Login</button>
               </Link>
             )}
           </li>
         </ul>
+      
       </div>
-    </nav>
+    </nav>  
+    { logoutModal && user.isAuthenticated  && <Logout setLogoutModal={setLogoutModal}/>}  
+    </header>
   );
 };
 

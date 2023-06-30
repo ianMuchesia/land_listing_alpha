@@ -80,7 +80,7 @@ const getAllProperties = async (req, res) => {
 
   const properties = await result;
 
-  res.status(StatusCodes.OK).json({properties , nbHits: properties.length});
+  res.status(StatusCodes.OK).json(properties);
 };
 
 const createProperty = async (req, res) => {

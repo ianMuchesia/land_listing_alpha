@@ -1,3 +1,4 @@
+import { useGetAllPropertiesQuery } from "@/pages/redux/services/Api";
 import React, { useState, useReducer } from "react";
 
 const Refine = () => {
@@ -10,6 +11,7 @@ const Refine = () => {
     price_max: "",
     size_max: "",
     size_min: "",
+    search:'',
   });
 
   const handleChange = (
@@ -22,6 +24,14 @@ const Refine = () => {
       [e.target.name]: e.target.value,
     }));
   };
+
+  const { data , isLoading } = useGetAllPropertiesQuery({
+    location:filter.location,
+    sort: filter.sort,
+    numericFilters: `area<=${filter.size_max},price>=${filter.price_min}`,
+    search:filter.search
+
+  })
 
  
   return (
@@ -39,6 +49,16 @@ const Refine = () => {
           {!refine ? "Refine Search" : "Close"}
         </button>
 
+        <div className="input__size">
+            
+            <input
+              type="text"
+              placeholder="search"
+              name="search"
+              onChange={handleChange}
+              value={filter.search}
+            />
+          </div>
         <select name="sort" id="" className="properties__header-sort" onChange={handleChange}>
           <option value="">--sort--</option>
           <option value="price">Price (lowest first)</option>
@@ -54,32 +74,27 @@ const Refine = () => {
               <option value="Nyali">Nyali</option>
             </select>
             <div className="input__price">
-              <input
-                type="number"
-                name="price_min"
-                placeholder="Min. Price"
-                onChange={handleChange}
-                value={filter.price_min}
-              />
-              <input
-                type="number"
-                name="price_max"
-                placeholder="Max. Price"
-                onChange={handleChange}
-                value={filter.price_max}
-              />
+           
+            <label htmlFor="price">Price</label>
+          <input
+            type="range"
+           
+            min={50000}
+            max={1500000}
+            id="price"
+            name="price_min"
+            value={filter.price_min}
+            onChange={handleChange}
+            className="input-price"
+          />
+          <p>Selected Range: KSH. {parseInt(filter.price_min).toLocaleString()}</p>
+        
             </div>
             <div className="input__size">
+            
               <input
                 type="number"
-                placeholder="Size min"
-                name="size_min"
-                onChange={handleChange}
-                value={filter.size_min}
-              />
-              <input
-                type="number"
-                placeholder="Size max"
+                placeholder="Maximum area size"
                 name="size_max"
                 onChange={handleChange}
                 value={filter.size_max}

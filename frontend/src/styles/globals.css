@@ -367,6 +367,21 @@ Navbar
   padding: 0.15rem 1rem;
 }
 
+.logout-link{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-top: 1px solid var(--grey-500);
+  align-items: center;
+  cursor: pointer;
+}
+.logout-icon{
+  font-size: 2.5rem;
+}
+.logout-link p{
+  text-align: center;
+}
+
 @media screen and (min-width: 992px) {
   .navbar {
     height: 6rem;
@@ -796,6 +811,7 @@ Modal
   padding: 0.1em 1em;
  
 }
+
 .modal-action-icon{
   align-self: center;
   background-color: var(--purple-200);
@@ -845,6 +861,20 @@ Modal
   margin: 1em 0em;
 }
 
+
+.modal-content-logout{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2em 0em;
+  
+}
+.logout-btn-container{
+  display: flex;
+  gap:1em;
+  align-items: center;
+  justify-content: space-between;
+}
 
 /*
 =============== 
