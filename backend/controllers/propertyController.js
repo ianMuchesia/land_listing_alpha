@@ -1,6 +1,7 @@
 const { NotFoundError } = require("../errors");
 const Property = require("../models/Property");
 const { StatusCodes } = require("http-status-codes");
+
 const cloudinary = require("cloudinary").v2;
 
 // Configuration
@@ -23,7 +24,8 @@ const getSingleProperty = async (req, res) => {
 };
 
 const getAllProperties = async (req, res) => {
-  const {featured, location, search, sort, numericFilters, field } = req.query;
+  const {featured, location, search, sort,  field , numericFilters} = req.query;
+  
 
   const queryObject = {};
 
@@ -40,23 +42,28 @@ const getAllProperties = async (req, res) => {
   }
 
   if (numericFilters) {
+    console.log(numericFilters)
     const opertorMap = {
       ">": "$gt",
       ">=": "$gte",
       "=": "$eq",
       "<": "$lt",
+      "&lt;":"$lt",
       "<=": "$lte",
+      "&lt;=":"$lte",
     };
-    const regEx = /\b(<|>|>=|=|<|<=)\b/g;
+    const regEx = /\b(<|>|>=|=|<|<=|&lt;|&lt;=)\b/g;
+
     let filters = numericFilters.replace(
       regEx,
       (match) => `-${opertorMap[match]}-`
     );
-
+    console.log(filters)
     const options = ["price", "area"];
     filters = filters.split(",").forEach((item) => {
       const [field, operator, value] = item.split("-");
       if (options.includes(field)) {
+        console.log(field)
         queryObject[field] = { [operator]: Number(value) };
       }
     });
@@ -73,7 +80,7 @@ const getAllProperties = async (req, res) => {
 
   const properties = await result;
 
-  res.status(StatusCodes.OK).json(properties);
+  res.status(StatusCodes.OK).json({properties , nbHits: properties.length});
 };
 
 const createProperty = async (req, res) => {

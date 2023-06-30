@@ -1,22 +1,31 @@
 import { useAppDispatch, useAppSelector } from "@/pages/redux/Hooks";
 import Link from "next/link";
+import {BsFillPersonDashFill} from "react-icons/bs"
 import { Icon } from "@iconify/react";
 import React, { useState } from "react";
-import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
+import {
+  AiOutlineMenu,
+  AiOutlineClose,
+  AiOutlineProfile,
+} from "react-icons/ai";
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css'; //
+
+
+
 const Navbar = () => {
   const dispatch = useAppDispatch();
 
   const user = useAppSelector((state) => state.auth);
 
-  
   const [toggle, setToggle] = useState(false);
 
   const handleToggle = () => {
     setToggle((prevToggle) => !prevToggle);
   };
-  const handleCloseToggle=()=>{
-    setToggle(false)
-  }
+  const handleCloseToggle = () => {
+    setToggle(false);
+  };
   return (
     <nav className="navbar">
       <div className="nav-center">
@@ -46,15 +55,23 @@ const Navbar = () => {
               Properties
             </Link>
           </li>
-          {user.user.role === "admin" && <li onClick={handleCloseToggle}>
-            <Link href="/create" className="nav-link">
-              Create
-            </Link>
-          </li>}
+          {user.user.role === "admin" && (
+            <li onClick={handleCloseToggle}>
+              <Link href="/create" className="nav-link">
+                Create
+              </Link>
+            </li>
+          )}
           <li className="contact-link" onClick={handleCloseToggle}>
             {user.isAuthenticated ? (
               <>
-                <button className=" btn">{user.user.name}</button>
+                <div className="logout-link">
+                <Tippy content={<h5>Hello</h5>}>
+                  <BsFillPersonDashFill />
+                  </Tippy>
+                  {user.user.name}
+                 
+                </div>
               </>
             ) : (
               <Link href="/Login" className="nav-link">

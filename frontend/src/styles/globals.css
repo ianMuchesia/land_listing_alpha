@@ -107,6 +107,17 @@ html {
   background: #555;
 }
 
+input[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
+  appearance: textfield; /* Other browsers */
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 body {
   background: var(--backgroundColor);
   font-family: var(--bodyFont);
