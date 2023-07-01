@@ -3,7 +3,7 @@ import React, {useReducer, useState} from "react";
 import { Icon } from "@iconify/react";
 import properties from "@/pages/properties";
 
-import { Email, Phone, Whatsapp } from "./modals";
+import { DeleteModal, EditModal, Email, Phone, Whatsapp } from "./modals";
 interface Props {
   property: typeProperties;
 }
@@ -16,6 +16,8 @@ const RefineProperty = ({ property }: Props) => {
     isModalOpen1: false,
     isModalOpen2: false,
     isModalOpen3: false,
+    isModalOpen4: false,
+    isModalOpen5: false,
   });
 
   const openModal = (modalName: string) => {
@@ -59,12 +61,22 @@ const RefineProperty = ({ property }: Props) => {
         <Icon icon="material-symbols:call" className="properties__page-icon" onClick={()=>{openModal("isModalOpen1")}}/>
         <Icon icon="uiw:message" className="properties__page-icon" onClick={()=>{openModal("isModalOpen2")}}/>
         <Icon icon="ic:baseline-whatsapp" className="properties__page-icon" onClick={()=>{openModal("isModalOpen3")}}/>
+        <Icon icon="material-symbols:edit-outline" className="properties__page-icon admini-icon" onClick={()=>{openModal("isModalOpen4")}}/>
+        <Icon icon="material-symbols:delete-outline" className="properties__page-icon admini-icon" onClick={()=>{openModal("isModalOpen5")}}/>
+       
         </div>
+       
+      
+        
         <div className="">
           {modalState.isModalOpen1 && <Phone property={property} closeModal={closeModal}/>}
           {modalState.isModalOpen2 && <Email  property={property} closeModal={closeModal}/>}
           {modalState.isModalOpen3 && <Whatsapp  closeModal={closeModal}/>}
+          {modalState.isModalOpen4 && <EditModal property={property} closeModal={closeModal}/>}
+          {modalState.isModalOpen5 && <DeleteModal property={property} closeModal={closeModal}/>}
         </div>
+       
+
       </div>
     </div>
   );
