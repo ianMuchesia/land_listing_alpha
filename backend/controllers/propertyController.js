@@ -38,11 +38,11 @@ const getAllProperties = async (req, res) => {
   }
 
   if (search) {
-    queryObject.name = { $regex: search, $options: "i" };
+    queryObject.title = { $regex: search, $options: "i" };
   }
 
   if (numericFilters) {
-    console.log(numericFilters)
+
     const opertorMap = {
       ">": "$gt",
       ">=": "$gte",
@@ -58,7 +58,7 @@ const getAllProperties = async (req, res) => {
       regEx,
       (match) => `-${opertorMap[match]}-`
     );
-    console.log(filters)
+
     const options = ["price", "area"];
     filters = filters.split(",").forEach((item) => {
       const [field, operator, value] = item.split("-");
@@ -80,7 +80,7 @@ const getAllProperties = async (req, res) => {
 
   const properties = await result;
 
-  res.status(StatusCodes.OK).json(properties);
+  res.status(StatusCodes.OK).json({properties, nbHits:properties.length});
 };
 
 const createProperty = async (req, res) => {
@@ -124,7 +124,7 @@ const deleteProperty=async(req, res)=>{
   }
 
   await property.deleteOne()
-
+  
   res.status(StatusCodes.ACCEPTED).json({success:true})
 
 }

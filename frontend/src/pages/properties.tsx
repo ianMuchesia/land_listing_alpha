@@ -4,13 +4,46 @@ import { Icon } from "@iconify/react";
 import RefineProperty from "@/components/RefineProperty";
 import axios from "axios";
 import Head from "next/head";
+import { useState } from "react";
+import { useGetAllPropertiesQuery } from "./redux/services/Api";
+import Loader from "@/components/Loader/Loader";
+import DataLoader from "@/components/Loader/DataLoader";
 
 
-interface Props {
-  properties: typeProperties[];
+interface queryData {
+  data:{
+    nbHits: number;
+    properties: typeProperties[];
+  }
+  isLoading:boolean;
 }
 
-const properties = ({ properties }: Props) => {
+const properties = () => {
+  const [filter, setFilter] = useState({
+    location: "",
+    sort: "",
+    price_min: "",
+    price_max: "",
+    size_max: "",
+    size_min: "",
+    search:'',
+  });
+
+ 
+
+  const { data , isLoading } = useGetAllPropertiesQuery<queryData>({
+    location:filter.location,
+    sort: filter.sort,
+    numericFilters: `area<=${filter.size_max},price>=${filter.price_min}`,
+    search:filter.search
+
+  })
+
+
+ 
+
+  
+  
   return (
     <>
       <Head>
@@ -20,13 +53,17 @@ const properties = ({ properties }: Props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="wrapper">
-        <Refine />
-
+        <Refine  setFilter={setFilter} filter={filter}/>
+        {isLoading && <div className="properties__loader">
+      <DataLoader/>
+        </div>}
+       {!isLoading && <h4>{data?.nbHits} {data?.nbHits !== 1? "properties":"property" } found</h4>}
         <div className="properties__page-property-container">
-          {properties &&
-            properties.map((property) => (
+            {data?.nbHits>0 &&
+            data?.properties.map((property) => (
               <RefineProperty property={property} key={property._id} />
-            ))}
+            ))}  
+            
         </div>
       </main>
     </>

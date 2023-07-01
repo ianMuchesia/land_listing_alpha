@@ -14,7 +14,7 @@ export const api = createApi({
     endpoints: (build)=>({
         getAllProperties:build.query({
             query:({location , search , sort,numericFilters})=>({
-                url: "property",
+                url: "properties",
                 method: "GET",
                 params: {search , sort , location, numericFilters}
             }),

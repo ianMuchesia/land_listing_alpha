@@ -1,18 +1,30 @@
 import { useGetAllPropertiesQuery } from "@/pages/redux/services/Api";
-import React, { useState, useReducer } from "react";
+import React, { useState, useReducer, SetStateAction, Dispatch } from "react";
 
-const Refine = () => {
+interface Props {
+  setFilter: Dispatch<
+    SetStateAction<{
+      location: string;
+      sort: string;
+      price_min: string;
+      price_max: string;
+      size_max: string;
+      size_min: string;
+      search: string;
+    }>
+  >;
+  filter: {
+    location: string;
+    sort: string;
+    price_min: string;
+    price_max: string;
+    size_max: string;
+    size_min: string;
+    search: string;
+  };
+}
+const Refine = ({ setFilter, filter }: Props) => {
   const [refine, setRefine] = useState(false);
-
-  const [filter, setFilter] = useState({
-    location: "",
-    sort: "",
-    price_min: "",
-    price_max: "",
-    size_max: "",
-    size_min: "",
-    search:'',
-  });
 
   const handleChange = (
     e:
@@ -25,20 +37,20 @@ const Refine = () => {
     }));
   };
 
-  const { data , isLoading } = useGetAllPropertiesQuery({
-    location:filter.location,
-    sort: filter.sort,
-    numericFilters: `area<=${filter.size_max},price>=${filter.price_min}`,
-    search:filter.search
-
-  })
-
- 
   return (
     <div className="properties__main__header">
       <div className="properties__header">
         <h4>Lands for Sale in Mombasa</h4>
         <h5>Page 1 of 1</h5>
+      </div>
+      <div className="input__size input__size_search">
+        <input
+          type="text"
+          placeholder="search"
+          name="search"
+          onChange={handleChange}
+          value={filter.search}
+        />
       </div>
       <div className="properties__header-buttons">
         <button
@@ -49,17 +61,12 @@ const Refine = () => {
           {!refine ? "Refine Search" : "Close"}
         </button>
 
-        <div className="input__size">
-            
-            <input
-              type="text"
-              placeholder="search"
-              name="search"
-              onChange={handleChange}
-              value={filter.search}
-            />
-          </div>
-        <select name="sort" id="" className="properties__header-sort" onChange={handleChange}>
+        <select
+          name="sort"
+          id=""
+          className="properties__header-sort"
+          onChange={handleChange}
+        >
           <option value="">--sort--</option>
           <option value="price">Price (lowest first)</option>
           <option value="-price">Price (highest first)</option>
@@ -74,24 +81,23 @@ const Refine = () => {
               <option value="Nyali">Nyali</option>
             </select>
             <div className="input__price">
-           
-            <label htmlFor="price">Price</label>
-          <input
-            type="range"
-           
-            min={50000}
-            max={1500000}
-            id="price"
-            name="price_min"
-            value={filter.price_min}
-            onChange={handleChange}
-            className="input-price"
-          />
-          <p>Selected Range: KSH. {parseInt(filter.price_min).toLocaleString()}</p>
-        
+              <label htmlFor="price">Price</label>
+              <input
+                type="range"
+                min={50000}
+                max={1500000}
+                id="price"
+                name="price_min"
+                value={filter.price_min}
+                onChange={handleChange}
+                className="input-price"
+              />
+              <p>
+                Selected Range: KSH.{" "}
+                {parseInt(filter.price_min).toLocaleString()}
+              </p>
             </div>
             <div className="input__size">
-            
               <input
                 type="number"
                 placeholder="Maximum area size"
@@ -101,7 +107,7 @@ const Refine = () => {
               />
             </div>
             <div className="properties__refine-form-btn">
-              <button className="btn input__refine-btn">Search</button>
+              <button className="btn input__refine-btn">Clear Filters</button>
               <button
                 type="button"
                 className="btn input__refine-btn"
