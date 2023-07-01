@@ -1,18 +1,26 @@
 export interface userAuth {
-    name: string;
-    userId: string;
-    role: string;
-  }
-
-
-  export interface typeProperties{
-    _id:string;
-    title:string;
-    description:string;
-    price:number;
-    category:string;
-    area:number;
-    imageUrls:string[];
-    location: string;
-    
+  name: string;
+  userId: string;
+  role: string;
 }
+
+export interface typeProperties {
+  _id: string;
+  title: string;
+  description: string;
+  price: number;
+  category: string;
+  area: number;
+  imageUrls: string[];
+  location: string;
+}
+export interface PaginationState {
+  currentPage: number;
+  postPerPage: number;
+  allProperties: typeProperties[];
+}
+
+export type PaginationAction =
+  | { type: "SET_CURRENT_PAGE"; payload: number }
+  | { type: "SET_POST_PER_PAGE"; payload: number }
+  | { type: "SET_ALL_PROPERTIES"; payload: typeProperties[] };
