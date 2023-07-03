@@ -1,13 +1,15 @@
 import { typeProperties } from "@/@types/@types";
-import ChooseUs from "@/components/ChooseUs";
-import Hero from "@/components/Hero";
-import Property from "@/components/Property";
+
+import Hero from "@/components/homeComponents/Hero";
+
 import axios from "axios";
 import Head from "next/head";
 import Image from "next/image";
 import { useEffect } from "react";
 import { useAppDispatch } from "./redux/Hooks";
 import checkAuthentication from "./redux/services/authCheck";
+import Property from "@/components/homeComponents/Property";
+import ChooseUs from "@/components/homeComponents/ChooseUs";
 
 interface Props {
   properties: typeProperties[];

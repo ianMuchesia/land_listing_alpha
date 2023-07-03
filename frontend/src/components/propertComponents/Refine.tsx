@@ -41,7 +41,7 @@ const Refine = ({ setFilter, filter }: Props) => {
     <div className="properties__main__header">
       <div className="properties__header">
         <h4>Lands for Sale in Mombasa</h4>
-        <h5>Page 1 of 1</h5>
+
       </div>
       <div className="input__size input__size_search">
         <input

@@ -3,16 +3,17 @@ import {
   PaginationState,
   typeProperties,
 } from "@/@types/@types";
-import Refine from "@/components/Refine";
 
-import RefineProperty from "@/components/RefineProperty";
+
+import RefineProperty from "@/components/propertComponents/RefineProperty";
 
 import Head from "next/head";
 import { useReducer, useState } from "react";
 import { useGetAllPropertiesQuery } from "./redux/services/Api";
 
 import DataLoader from "@/components/Loader/DataLoader";
-import Pagination from "@/components/Pagination";
+import Refine from "@/components/propertComponents/Refine";
+import Pagination from "@/components/propertComponents/Pagination";
 
 //rtk query type
 interface queryData {
@@ -118,7 +119,7 @@ let totalPages = Math.ceil(data?.totalProperties / 8);
         )}
         {!isLoading && (
           <h4>
-            {data?.nbHits} {data?.nbHits !== 1 ? "properties" : "property"}{" "}
+            {data?.totalProperties} {data?.nbHits !== 1 ? "properties" : "property"}{" "}
             found
           </h4>
         )}
@@ -129,13 +130,13 @@ let totalPages = Math.ceil(data?.totalProperties / 8);
             ))}
         </div>
         <div className="pagination__container">
-          <Pagination
+          {data?.totalProperties>0 && <Pagination
             handleNextPageClick={handleNextPageClick}
             handleCurrentPageClick={handleCurrentPageClick}
             handlePreviousPageClick={handlePreviousPageClick}
             totalPages={totalPages}
             currentPage={currentPage}
-          />
+          />}
         </div>
       </main>
     </>
