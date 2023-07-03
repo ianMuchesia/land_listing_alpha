@@ -1,11 +1,53 @@
 import { typeProperties } from '@/@types/@types';
-import React from 'react'
+import React, { useState } from 'react'
 import { Icon } from '@iconify/react';
+import axios from 'axios';
 interface Props{
     closeModal: (modalName: string) => void;
     property:typeProperties;
 }
 const Email = ({closeModal, property}:Props) => {
+
+
+
+
+  const [ form , setForm] = useState({
+    name:"",
+    phone:"",
+    message: "",
+})
+
+
+const handleChange = (e:React.ChangeEvent<HTMLInputElement>)=>{
+    setForm(prevForm=>({
+        ...prevForm,
+        [e.target.name]: e.target.value
+    }))
+}
+
+console.log(property._id)
+
+
+const handleSubmit = async(e:React.FormEvent)=>{
+    e.preventDefault();
+   
+
+    try {
+        const {data } = await axios.post('http://localhost:4000/api/v1/communication/whatsapp', {name:form.name , phone:form.phone ,propertyID:property._id})
+
+        console.log(data)
+        if(data.success){
+            setForm({
+                name:"",
+                phone:"",
+            })
+        }
+    } catch (error) {
+        console.log(error)
+    }
+
+
+}
   return (
     <aside className='modal-overlay'>
     <div className='modal-container'>

@@ -2,15 +2,16 @@ const Customer = require("../models/Customer");
 const {StatusCodes} = require("http-status-codes");
 const { communication } = require("../utils");
 const { BadRequestError } = require("../errors");
+const Request = require("../models/Request");
 
 const phoneLink = process.env.MY_PHONE
 const phoneCall = async(req, res)=>{
-    const {phone , name , propertyID}= req.body;
+    const {phone , name , propertyID, message}= req.body;
  
-    if(!name|| !phone ||!propertyID ){
+    if(!name|| !phone ||!propertyID  ){
         throw new BadRequestError("please provide all values")
     }
-   let saveToDatabase =await communication(name , phone , propertyID)
+   let saveToDatabase =await communication(name , phone , propertyID, message)
    
    console.log(saveToDatabase)
    if(!saveToDatabase){
@@ -23,9 +24,17 @@ const phoneCall = async(req, res)=>{
 }
 
 const sms = async(req, res)=>{
-    const {phone , name , propertyID}= req.body;
-
-    communication(name , phone , propertyID)
+    const {phone , name , propertyID, message}= req.body;
+ 
+    if(!name|| !phone ||!propertyID ||!message ){
+        throw new BadRequestError("please provide all values")
+    }
+   let saveToDatabase =await communication(name , phone , propertyID, message)
+   
+   console.log(saveToDatabase)
+   if(!saveToDatabase){
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: "something wrong happened" });
+   }
 
 
     res.status(StatusCodes.CREATED).json({link:`sms:+${phoneLink}` , success:true})
@@ -33,9 +42,17 @@ const sms = async(req, res)=>{
 }
 
 const whatsapp = async(req, res)=>{
-    const {phone , name , propertyID}= req.body;
-
-    communication(name , phone , propertyID)
+    const {phone , name , propertyID, message}= req.body;
+ 
+    if(!name|| !phone ||!propertyID  ){
+        throw new BadRequestError("please provide all values")
+    }
+   let saveToDatabase =await communication(name , phone , propertyID, message)
+   
+   console.log(saveToDatabase)
+   if(!saveToDatabase){
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: "something wrong happened" });
+   }
 
 
     res.status(StatusCodes.CREATED).json({link:`whatsapp://send?phone=+${phoneLink}` , success:true})
@@ -44,7 +61,7 @@ const whatsapp = async(req, res)=>{
 
 
 const getPhones=async(req, res)=>{
-    const phones = await Customer.find({})
+    const phones = await Request.find({})
     res.json(phones)
 }
 
