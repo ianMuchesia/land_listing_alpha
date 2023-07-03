@@ -19,33 +19,34 @@ interface queryData {
   data: {
     nbHits: number;
     properties: typeProperties[];
+    totalProperties: number;
   };
   isLoading: boolean;
   isSuccess:boolean;
 }
 
 //reducer for pagination functionality
-const paginationReducer = (
-  state: PaginationState,
-  action: PaginationAction
-): PaginationState => {
-  switch (action.type) {
+const initialState : PaginationState ={
+  currentPage: 1,
+}
+
+const paginationReducer = (state:PaginationState, action:PaginationAction):PaginationState=>{
+  switch(action.type){
     case "SET_CURRENT_PAGE":
-      return { ...state, currentPage: action.payload };
-    case "SET_POST_PER_PAGE":
-      return { ...state, postPerPage: action.payload };
-    case "SET_ALL_PROPERTIES":
-      return { ...state, allProperties: action.payload };
+      return {...state, currentPage:action.payload};
+    case "NEXT_PAGE":
+      return {
+        ...state,
+        currentPage:state.currentPage + 1,
+      }
+    case "PREVIOUS_PAGE":
+      return {
+        ...state,
+        currentPage: state.currentPage - 1,
+      }
     default:
       return state;
   }
-};
-
-//initial pagination state
-const initialState: PaginationState = {
-  currentPage: 1,
-  postPerPage: 8,
-  allProperties: [],
 };
 
 const properties = () => {
@@ -69,41 +70,37 @@ const properties = () => {
     sort: filter.sort,
     numericFilters: `area<=${filter.size_max},price>=${filter.price_min}`,
     search: filter.search,
+    page:state.currentPage,
   }
  
   );
 
-  if(isSuccess){
-    dispatch({
-      type: "SET_ALL_PROPERTIES",
-      payload: data.properties
-    });
-  }
-
+ 
   //pagination logic
-  const { currentPage, postPerPage, allProperties } = state;
-  const lastPostIndex = currentPage * postPerPage;
-  const firstPostIndex = lastPostIndex - postPerPage;
+  const { currentPage } = state;
+  
 
-  const currentPosts = allProperties.slice(firstPostIndex, lastPostIndex);
 
-  console.log(allProperties)
+let totalPages = Math.ceil(data?.totalProperties / 8);
 
-  const totalPages = Math.ceil(allProperties.length / postPerPage);
 
-  const handlePageClick = (page: number) => {
-    dispatch({ type: "SET_CURRENT_PAGE", payload: page });
-  };
+   
+
 
   const handlePreviousPageClick = () => {
     if (currentPage === 1) return;
-    dispatch({ type: "SET_CURRENT_PAGE", payload: currentPage - 1 });
+    dispatch({ type: "PREVIOUS_PAGE" });
   };
 
   const handleNextPageClick = () => {
     if (currentPage === totalPages) return;
-    dispatch({ type: "SET_CURRENT_PAGE", payload: currentPage + 1 });
+    dispatch({ type: "NEXT_PAGE" });
   };
+
+  const handleCurrentPageClick = (page: number) => {
+    dispatch({ type: "SET_CURRENT_PAGE", payload: page });
+  };
+
   return (
     <>
       <Head>
@@ -127,14 +124,14 @@ const properties = () => {
         )}
         <div className="properties__page-property-container">
           {data?.nbHits > 0 &&
-            currentPosts.map((property) => (
+            data?.properties.map((property) => (
               <RefineProperty property={property} key={property._id} />
             ))}
         </div>
         <div className="pagination__container">
           <Pagination
             handleNextPageClick={handleNextPageClick}
-            handlePageClick={handlePageClick}
+            handleCurrentPageClick={handleCurrentPageClick}
             handlePreviousPageClick={handlePreviousPageClick}
             totalPages={totalPages}
             currentPage={currentPage}

@@ -24,7 +24,7 @@ const getSingleProperty = async (req, res) => {
 };
 
 const getAllProperties = async (req, res) => {
-  const {featured, location, search, sort,  field , numericFilters} = req.query;
+  const {featured, location, search, sort,  field ,page, numericFilters} = req.query;
   
 
   const queryObject = {};
@@ -63,13 +63,17 @@ const getAllProperties = async (req, res) => {
     filters = filters.split(",").forEach((item) => {
       const [field, operator, value] = item.split("-");
       if (options.includes(field)) {
-        console.log(field)
+      
+        
         queryObject[field] = { [operator]: Number(value) };
       }
     });
   }
 
   let result = Property.find(queryObject);
+
+  const totalItems = await Property.find(queryObject).countDocuments();
+
 
   if (sort) {
     const sortArray = sort.split(",").join(" ");
@@ -78,9 +82,22 @@ const getAllProperties = async (req, res) => {
     result = result.sort("createdAt");
   }
 
+  
+
+  //pagination 
+  if(page){
+    const pagination = Number(page);
+    const limit = Number(req.query.limit) || 8;
+    const skip = (pagination-1)*limit;
+
+
+    result = result.skip(skip).limit(limit)
+
+  }
+
   const properties = await result;
 
-  res.status(StatusCodes.OK).json({properties, nbHits:properties.length});
+  res.status(StatusCodes.OK).json({properties, nbHits:properties.length,totalProperties: totalItems });
 };
 
 const createProperty = async (req, res) => {

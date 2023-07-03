@@ -14,13 +14,11 @@ export interface typeProperties {
   imageUrls: string[];
   location: string;
 }
-export interface PaginationState {
+export type PaginationState = {
   currentPage: number;
-  postPerPage: number;
-  allProperties: typeProperties[];
-}
+};
 
 export type PaginationAction =
   | { type: "SET_CURRENT_PAGE"; payload: number }
-  | { type: "SET_POST_PER_PAGE"; payload: number }
-  | { type: "SET_ALL_PROPERTIES"; payload: typeProperties[] };
+  | { type: "NEXT_PAGE" }
+  | { type: "PREVIOUS_PAGE" };

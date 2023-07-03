@@ -13,11 +13,12 @@ export const api = createApi({
     ],
     endpoints: (build)=>({
         getAllProperties:build.query({
-            query:({location , search , sort,numericFilters})=>({
+            query:({location , search , sort,numericFilters, page})=>({
                 url: "properties",
                 method: "GET",
-                params: {search , sort , location, numericFilters}
+                params: {search , sort , location, numericFilters, page}
             }),
+            
         providesTags: ['allProperties']
         })
     })
