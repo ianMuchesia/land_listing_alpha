@@ -2,8 +2,6 @@ import Head from 'next/head'
 import React, {ReactNode, useEffect} from 'react'
 import Navbar from './Navbar'
 import Footer from './Footer'
-import { useAppDispatch } from '@/redux/Hooks';
-import checkAuthentication from '@/redux/services/authCheck';
 
 
 interface LayoutProps {
