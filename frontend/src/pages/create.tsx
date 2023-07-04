@@ -3,9 +3,10 @@ import React, { useEffect } from 'react'
 
 
 import useAuthorization from '@/utils/authorize';
-import { useAppDispatch, useAppSelector } from './redux/Hooks';
-import checkAuthentication from './redux/services/authCheck';
+import { useAppDispatch, useAppSelector } from '../redux/Hooks';
+
 import ImagesUpload from '@/components/createComponents/ImagesUpload';
+import { checkAuthentication } from '../redux/services/authCheck';
 const create = () => {
 
  

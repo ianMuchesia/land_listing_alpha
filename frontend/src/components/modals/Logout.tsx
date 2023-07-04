@@ -1,5 +1,5 @@
-import { setisNotAuthenticated } from "@/pages/redux/Features/authSlice";
-import { useAppDispatch, useAppSelector } from "@/pages/redux/Hooks";
+import { setisNotAuthenticated } from "@/redux/Features/authSlice";
+import { useAppDispatch, useAppSelector } from "@/redux/Hooks";
 import axios from "axios";
 import {useRouter}  from "next/router";
 import React from "react";

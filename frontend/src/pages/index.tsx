@@ -6,10 +6,10 @@ import axios from "axios";
 import Head from "next/head";
 import Image from "next/image";
 import { useEffect } from "react";
-import { useAppDispatch } from "./redux/Hooks";
-import checkAuthentication from "./redux/services/authCheck";
+import { useAppDispatch } from "../redux/Hooks";
 import Property from "@/components/homeComponents/Property";
 import ChooseUs from "@/components/homeComponents/ChooseUs";
+import { checkAuthentication } from "../redux/services/authCheck";
 
 interface Props {
   properties: typeProperties[];

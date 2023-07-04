@@ -9,7 +9,7 @@ import RefineProperty from "@/components/propertComponents/RefineProperty";
 
 import Head from "next/head";
 import { useReducer, useState } from "react";
-import { useGetAllPropertiesQuery } from "./redux/services/Api";
+import { useGetAllPropertiesQuery } from "../redux/services/Api";
 
 import DataLoader from "@/components/Loader/DataLoader";
 import Refine from "@/components/propertComponents/Refine";

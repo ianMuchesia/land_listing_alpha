@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from "@/pages/redux/Hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/Hooks";
 import Link from "next/link";
 import {BsFillPersonDashFill} from "react-icons/bs"
 import { Icon } from "@iconify/react";
