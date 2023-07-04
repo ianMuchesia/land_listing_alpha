@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Icon } from '@iconify/react';
 import axios from 'axios';
 import { typeProperties } from '@/@types/@types';
+import { useRouter } from 'next/router';
 
 interface Props{
     closeModal: (modalName: string) => void;
@@ -9,6 +10,7 @@ interface Props{
 }
 const Whatsapp = ({closeModal, property}:Props) => {
 
+  const router = useRouter()
 
   const [ form , setForm] = useState({
     name:"",
@@ -39,6 +41,7 @@ const handleSubmit = async(e:React.FormEvent)=>{
                 name:"",
                 phone:"",
             })
+            window.open(data.link)
         }
     } catch (error) {
         console.log(error)

@@ -1,13 +1,14 @@
 import { typeProperties } from '@/@types/@types';
 import { Icon } from '@iconify/react';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 import React, { useState } from 'react'
 interface Props{
     closeModal: (modalName: string) => void;
     property: typeProperties;
 }
 const Phone = ({closeModal, property}:Props) => {
-
+    const router = useRouter();
     const [ form , setForm] = useState({
         name:"",
         phone:"",
@@ -37,6 +38,7 @@ const Phone = ({closeModal, property}:Props) => {
                     name:"",
                     phone:"",
                 })
+                router.push(data.link)
             }
         } catch (error) {
             console.log(error)

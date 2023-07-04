@@ -55,7 +55,7 @@ const whatsapp = async(req, res)=>{
    }
 
 
-    res.status(StatusCodes.CREATED).json({link:`whatsapp://send?phone=+${phoneLink}` , success:true})
+    res.status(StatusCodes.CREATED).json({link:`https://web.whatsapp.com/send?phone=+${phoneLink}` , success:true})
     
 }
 

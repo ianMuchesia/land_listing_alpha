@@ -27,9 +27,10 @@ export default function Home({ properties }: Props) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="wrapper">
+      <main>
         <Hero />
-        <div className="property-heading">
+        <div className="wrapper">
+        <div className="property-heading wrapper-width">
           <h2>Featured</h2>
         </div>
         <div className="property-container">
@@ -39,6 +40,7 @@ export default function Home({ properties }: Props) {
             ))}
         </div>
         <ChooseUs />
+        </div>
       </main>
     </>
   );

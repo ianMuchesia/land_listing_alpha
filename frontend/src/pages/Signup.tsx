@@ -2,7 +2,7 @@ import Head from 'next/head'
 import React from 'react'
 
 import Link from 'next/link'
-import SignUpForm from '@/components/SignUpForm'
+import SignUpForm from '@/components/authComponents/SignUpForm'
 
 
 const signup = () => {

@@ -3,7 +3,7 @@ import { Icon } from '@iconify/react';
 
 const ChooseUs = () => {
   return (
-    <div className="choose__us-container">
+    <div className="choose__us-container wrapper-width" >
       <h3>Why Choose Us</h3>
       <div className="choose__us-grid">
         <div className="choose__us-card">

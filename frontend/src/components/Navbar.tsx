@@ -36,7 +36,7 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="nav-center">
         <div className="nav-header">
-          <h3>Logo</h3>
+         <h3>Logo</h3>
           <button onClick={handleToggle} className="nav-btn btn">
             {!toggle ? (
               <AiOutlineMenu className="nav-icon" />
