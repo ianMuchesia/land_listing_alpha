@@ -1,4 +1,4 @@
-import { useGetAllPropertiesQuery } from "@/pages/redux/services/Api";
+import { useGetAllPropertiesQuery } from "@/redux/services/Api";
 import React, { useState, useReducer, SetStateAction, Dispatch } from "react";
 
 interface Props {

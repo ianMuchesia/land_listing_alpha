@@ -7,7 +7,7 @@ import axios from "axios"
 
 
 
-const checkAuthentication=()=>{
+export const checkAuthentication=()=>{
   
     return async(dispatch:AppDispatch)=>{
         try {
@@ -33,4 +33,3 @@ const checkAuthentication=()=>{
 }
 
 
-export default checkAuthentication

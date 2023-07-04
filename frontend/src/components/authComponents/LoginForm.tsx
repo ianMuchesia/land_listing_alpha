@@ -4,13 +4,13 @@ import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loader from "../Loader/Loader";
-import { useAppDispatch, useAppSelector } from "@/pages/redux/Hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/Hooks";
 import {
   setCloseLoader,
   setFormLoader,
-} from "@/pages/redux/Features/loadSlice";
+} from "@/redux/Features/loadSlice";
 import { useRouter } from "next/router";
-import { setIsAuthenticated } from "@/pages/redux/Features/authSlice";
+import { setIsAuthenticated } from "@/redux/Features/authSlice";
 
 const LoginForm = () => {
   const router = useRouter();
