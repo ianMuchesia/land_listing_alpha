@@ -47,12 +47,12 @@ const whatsapp = async(req, res)=>{
     if(!name|| !phone ||!propertyID  ){
         throw new BadRequestError("please provide all values")
     }
-   let saveToDatabase =await communication(name , phone , propertyID, message)
+//    let saveToDatabase =await communication(name , phone , propertyID, message)
    
-   console.log(saveToDatabase)
-   if(!saveToDatabase){
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: "something wrong happened" });
-   }
+//    console.log(saveToDatabase)
+//    if(!saveToDatabase){
+//     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: "something wrong happened" });
+//    }
 
 
     res.status(StatusCodes.CREATED).json({link:`https://web.whatsapp.com/send?phone=+${phoneLink}` , success:true})
