@@ -4,8 +4,8 @@ import React, { useEffect } from 'react'
 
 import useAuthorization from '@/utils/authorize';
 import { useAppDispatch, useAppSelector } from './redux/Hooks';
-import ImagesUpload from '@/components/ImagesUpload';
 import checkAuthentication from './redux/services/authCheck';
+import ImagesUpload from '@/components/createComponents/ImagesUpload';
 const create = () => {
 
  

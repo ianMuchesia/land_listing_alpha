@@ -10,11 +10,17 @@ const communication = async (name, phone, propertyID, message) => {
     customerExist = await Customer.create({ name, phone });
   }
 
-  await Request.create({
-    property: propertyID,
-    customer: customerExist._id,
-    message,
-  });
+  try {
+    await Request.create({
+      property: propertyID,
+      customer: customerExist._id,
+      message,
+    });
+  } catch (error) {
+    console.log(error)
+  }
+
+ 
   return true;
 };
 

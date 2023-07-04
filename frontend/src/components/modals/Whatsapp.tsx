@@ -37,6 +37,7 @@ const handleSubmit = async(e:React.FormEvent)=>{
 
         console.log(data)
         if(data.success){
+           
             setForm({
                 name:"",
                 phone:"",
