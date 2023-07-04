@@ -63,7 +63,7 @@ const LoginForm = () => {
       console.log(error);
       if (error.code === "ECONNABORTED") {
         // handle timeout error
-        toast.error("Request timed out. Please try again later.");
+        toast.error("Request timed out. Please check your connection.");
         return;
       }
       if (error.response?.data?.msg) {

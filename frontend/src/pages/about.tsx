@@ -11,8 +11,8 @@ const about = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="wrapper">
-        <div className="about__header">
+      <main className="">
+        <div className="about__header ">
         <h1>About Us</h1>
         <p>Welcome to Land Listing, your ultimate destination for finding the perfect land. Our platform provides a seamless and efficient way to explore a diverse range of land listings from various locations. 
         Discover your dream property and connect with trusted sellers through Land Listing.
@@ -51,7 +51,7 @@ const about = () => {
         </div>
 
        
-      </div>
+      </main>
    </>
   )
 }

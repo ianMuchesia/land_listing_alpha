@@ -6,7 +6,7 @@ interface Props {
     SetStateAction<{
       location: string;
       sort: string;
-      price_min: string;
+      price_min: number;
       price_max: string;
       size_max: string;
       size_min: string;
@@ -16,7 +16,7 @@ interface Props {
   filter: {
     location: string;
     sort: string;
-    price_min: string;
+    price_min: number;
     price_max: string;
     size_max: string;
     size_min: string;
@@ -94,7 +94,7 @@ const Refine = ({ setFilter, filter }: Props) => {
               />
               <p>
                 Selected Range: KSH.{" "}
-                {parseInt(filter.price_min).toLocaleString()}
+                {filter.price_min.toLocaleString()}
               </p>
             </div>
             <div className="input__size">

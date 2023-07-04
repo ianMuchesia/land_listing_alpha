@@ -57,7 +57,7 @@ const properties = () => {
   const [filter, setFilter] = useState({
     location: "",
     sort: "",
-    price_min: "",
+    price_min: 50000,
     price_max: "",
     size_max: "",
     size_min: "",

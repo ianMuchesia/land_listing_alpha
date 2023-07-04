@@ -3,7 +3,7 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Loader from "./Loader/Loader";
+
 import { useAppDispatch, useAppSelector } from "@/pages/redux/Hooks";
 import {
   setCloseLoader,
@@ -11,6 +11,7 @@ import {
 } from "@/pages/redux/Features/loadSlice";
 import { useRouter } from "next/router";
 import { setIsAuthenticated } from "@/pages/redux/Features/authSlice";
+import Loader from "../Loader/Loader";
 
 const SignUpForm = () => {
   const router = useRouter();
@@ -40,7 +41,7 @@ const SignUpForm = () => {
       return;
     }
     if (password !== confirmPassword) {
-      toast.warn("passwords did not match");
+      toast.warn("passwords do not match");
       return;
     }
     dispatch(setFormLoader());
@@ -75,7 +76,7 @@ const SignUpForm = () => {
       console.log(error);
       if (error.code === "ECONNABORTED") {
         // handle timeout error
-        toast.error("Request timed out. Please try again later.");
+        toast.error("Request timed out. Please check your connection.");
         return;
       }
       if (error.response?.data?.msg) {
