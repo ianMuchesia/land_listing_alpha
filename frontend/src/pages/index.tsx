@@ -19,6 +19,8 @@ export default function Home({ properties }: Props) {
   useEffect(() => {
     dispatch(checkAuthentication());
   }, []);
+
+  console.log(process.env.BACKEND_URL)
   return (
     <>
       <Head>
@@ -48,9 +50,9 @@ export default function Home({ properties }: Props) {
 
 export const getServerSideProps = async () => {
   try {
-    const { data } = await axios.get("http://localhost:4000/api/v1/properties");
+    const { data } = await axios.get(`${process.env.BACKEND_URL}/api/v1/properties`);
 
-    const properties = data.slice(0, 5);
+    const properties = data.properties.slice(0, 5);
 
     return {
       props: { properties },
