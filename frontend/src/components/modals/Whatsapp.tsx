@@ -33,7 +33,7 @@ const handleSubmit = async(e:React.FormEvent)=>{
    
 
     try {
-        const {data } = await axios.post('http://localhost:4000/api/v1/communication/whatsapp', {name:form.name , phone:form.phone ,propertyID:property._id})
+        const {data } = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/communication/whatsapp`, {name:form.name , phone:form.phone ,propertyID:property._id})
 
         console.log(data)
         if(data.success){

@@ -11,7 +11,7 @@ export const checkAuthentication=()=>{
   
     return async(dispatch:AppDispatch)=>{
         try {
-            const {data} = await axios.get(`http://localhost:4000/api/v1/auth/showUser`, {withCredentials: true})
+            const {data} = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/showUser`, {withCredentials: true})
         
             console.log(data)
             if(data.success){

@@ -39,7 +39,7 @@ const LoginForm = () => {
     dispatch(setFormLoader());
     try {
       const { data } = await axios.post(
-        `http://localhost:4000/api/v1/auth/login`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/login`,
         {
           email,
           password,

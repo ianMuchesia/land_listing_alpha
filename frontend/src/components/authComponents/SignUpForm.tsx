@@ -47,7 +47,7 @@ const SignUpForm = () => {
     dispatch(setFormLoader());
     try {
       const { data } = await axios.post(
-        `http://localhost:4000/api/v1/auth/register`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/register`,
         {
           name: firstName + " " + secondName,
           email,
