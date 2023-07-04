@@ -20,7 +20,7 @@ export default function Home({ properties }: Props) {
     dispatch(checkAuthentication());
   }, []);
 
-  console.log(process.env.BACKEND_URL)
+  console.log(`${process.env.NEXT_PUBLIC_BACKEND_URL}`)
   return (
     <>
       <Head>
