@@ -6,6 +6,7 @@ import Dashboard from './scenes/dashboard'
 import Customers from './scenes/customers'
 import Settings from './scenes/settings'
 import Properties from './scenes/properties'
+import Requests from './scenes/requests'
 
 function App() {
 
@@ -13,15 +14,17 @@ function App() {
     <>
       <BrowserRouter>
       <Sidebar/>
-      <section id="content">
+      <div id="content">
         <Navbar/>
       <Routes>
         <Route path="/" element={<Dashboard/>}/>
         <Route path="/customers" element={<Customers/>}/>
         <Route path="/settings" element={<Settings/>}/>
         <Route path="/properties" element={<Properties/>}/>
+        <Route path="/requests" element={<Requests/>}/>
+
       </Routes>
-      </section>
+      </div>
       </BrowserRouter>
     </>
   )

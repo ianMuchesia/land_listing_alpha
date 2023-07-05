@@ -2,10 +2,10 @@ import BreadCrumb from "../../components/BreadCrumb";
 
 const Settings = () => {
   return (
-    <div>
+    <section>
       <BreadCrumb title="Settings" link="/setings" />
       Settings
-    </div>
+    </section>
   );
 };
 
