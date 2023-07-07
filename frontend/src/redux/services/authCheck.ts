@@ -11,8 +11,13 @@ export const checkAuthentication=()=>{
   
     return async(dispatch:AppDispatch)=>{
         try {
-            const {data} = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/showUser`, {withCredentials: true})
-        
+
+            const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL; // Ensure this value is set correctly in your environment
+            const apiEndpoint = '/api/v1/auth/showUser';
+            const url = `${backendUrl}${apiEndpoint}`;
+            
+            const { data } = await axios.get(url, { withCredentials: true });
+                    
             console.log(data)
             if(data.success){
                 const {name , userId , role} = data.user
