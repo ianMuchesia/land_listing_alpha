@@ -24,7 +24,11 @@ const PropertySchema = new Schema(
       type: Number,
       required: true,
     },
-    imageUrls: {
+    mainImage:{
+      type:String,
+      required: true,
+    },
+    images: {
       type: [String],
       required: true,
       validate: {
