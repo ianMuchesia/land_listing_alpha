@@ -233,9 +233,7 @@ select:focus {
   border: none;
 }
 
-select:hover {
-  background-color: var(--purple-200);
-}
+
 
 /* form */
 
@@ -711,11 +709,13 @@ section{
 	max-height: calc(100vh - 56px);
 	overflow-y: auto;
 }
+
 .settings-header{
 	display: flex;
-	justify-content: space-around;
+
 	padding: 0.5em 5em;
 	align-items: center;
+	gap:5em;
 }
 .settings-header button{
 	justify-self: flex-end;
@@ -756,6 +756,13 @@ section{
 	cursor: pointer;
 	
   } 
+  .inputed-image{
+	height: 150px;
+	width: 250px;
+	object-fit: cover;
+	border: 2px solid var(--grey-300);
+	margin: 1em;
+  }
   
   .input-image {
 	position: absolute;
