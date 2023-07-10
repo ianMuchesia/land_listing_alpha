@@ -7,8 +7,7 @@ const Sidebar = () => {
   return (
     <section id="sidebar">
 		<a href="#" className="brand">
-			<i className='bx bxs-smile'></i>
-			<span className="text">AdminHub</span>
+			<span className="text">Land Listing</span>
 		</a>
 		<ul className="side-menu top">
 			<li className="">

@@ -100,31 +100,51 @@ const getAllProperties = async (req, res) => {
   res.status(StatusCodes.OK).json({properties, nbHits:properties.length,totalProperties: totalItems });
 };
 
+
+
 const createProperty = async (req, res) => {
-  const { title, description, price, location, area, imageUrls } = req.body;
+  const { title, description, price, location, area, images, mainImage } = req.body;
 
-  const uploadImages = imageUrls.map((image, index) => {
-    const responseImage =  cloudinary.uploader.upload(image, {
-      folder: "TechnicianShop",
-      public_id: `${image}-${title}-${index}`,
-    });
-    return responseImage.secure_url
-  });
+  // const uploadImages = images.map((image, index) => {
+  //   const responseImage =  cloudinary.uploader.upload(image, {
+  //     folder: "TechnicianShop",
+  //     public_id: `${image}-${title}-${index}`,
+  //   });
+  //   return responseImage.secure_url
+  // });
 
-  const responseImages = await Promise.all(uploadImages);
+  // const responseImages = await Promise.all(uploadImages);
+
+  const [ responseMainImage , responseImages ] = await Promise.all([
+    cloudinary.uploader.upload(mainImage,{
+      folder:"land_listing",
+      public_id: `${title}-mainImage`
+    }),
+    Promise.all(
+      images.map((image, index) =>
+        cloudinary.uploader.upload(image, {
+          folder: "land_listing",
+          public_id: `${title}-${index}`,
+        })
+      )
+    )
+    // ).then((responseImages) =>
+    //   responseImages.map((responseImage) => responseImage.secure_url)
+    // ),
+  ])
 
 
-  const property = await Property.create({
-    title,
-    description,
-    price,
-    location,area,
-    imageUrls: responseImages
-  })
+  // const property = await Property.create({
+  //   title,
+  //   description,
+  //   price,
+  //   location,area,
+  //   imageUrls: responseImages
+  // })
 
 
 
-  res.status(StatusCodes.CREATED).json({success:true})
+  res.status(StatusCodes.CREATED).json({success:true, responseImages, responseMainImage})
 
 
 };
