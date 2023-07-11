@@ -25,11 +25,18 @@ const PropertySchema = new Schema(
       required: true,
     },
     mainImage:{
-      type:String,
+      type:{
+        url:{type:String},
+        public_id: {type:String},
+      },
       required: true,
     },
     images: {
-      type: [String],
+      type: [{
+        url :{type:String},
+        public_id: {type:String}
+
+      }],
       required: true,
       validate: {
         validator: function(arr) {
