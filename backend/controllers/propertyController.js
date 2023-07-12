@@ -1,4 +1,4 @@
-const { NotFoundError } = require("../errors");
+const { NotFoundError, BadRequestError } = require("../errors");
 const Property = require("../models/Property");
 const { StatusCodes } = require("http-status-codes");
 
@@ -24,8 +24,8 @@ const getSingleProperty = async (req, res) => {
 };
 
 const getAllProperties = async (req, res) => {
-  const {featured, location, search, sort,  field ,page, numericFilters} = req.query;
-  
+  const { featured, location, search, sort, field, page, numericFilters } =
+    req.query;
 
   const queryObject = {};
 
@@ -42,15 +42,14 @@ const getAllProperties = async (req, res) => {
   }
 
   if (numericFilters) {
-
     const opertorMap = {
       ">": "$gt",
       ">=": "$gte",
       "=": "$eq",
       "<": "$lt",
-      "&lt;":"$lt",
+      "&lt;": "$lt",
       "<=": "$lte",
-      "&lt;=":"$lte",
+      "&lt;=": "$lte",
     };
     const regEx = /\b(<|>|>=|=|<|<=|&lt;|&lt;=)\b/g;
 
@@ -63,8 +62,6 @@ const getAllProperties = async (req, res) => {
     filters = filters.split(",").forEach((item) => {
       const [field, operator, value] = item.split("-");
       if (options.includes(field)) {
-      
-        
         queryObject[field] = { [operator]: Number(value) };
       }
     });
@@ -74,7 +71,6 @@ const getAllProperties = async (req, res) => {
 
   const totalItems = await Property.find(queryObject).countDocuments();
 
-
   if (sort) {
     const sortArray = sort.split(",").join(" ");
     result = result.sort(sortArray);
@@ -82,43 +78,44 @@ const getAllProperties = async (req, res) => {
     result = result.sort("createdAt");
   }
 
-  
-
-  //pagination 
-  if(page){
+  //pagination
+  if (page) {
     const pagination = Number(page);
     const limit = Number(req.query.limit) || 8;
-    const skip = (pagination-1)*limit;
+    const skip = (pagination - 1) * limit;
 
-
-    result = result.skip(skip).limit(limit)
-
+    result = result.skip(skip).limit(limit);
   }
 
   const properties = await result;
 
-  res.status(StatusCodes.OK).json({properties, nbHits:properties.length,totalProperties: totalItems });
+  res.status(StatusCodes.OK).json({
+    properties,
+    nbHits: properties.length,
+    totalProperties: totalItems,
+  });
 };
 
-
-
 const createProperty = async (req, res) => {
-  const { title, description, price, location, area, images, mainImage } = req.body;
+  const { title, description, price, location, area, images, mainImage } =
+    req.body;
 
-  // const uploadImages = images.map((image, index) => {
-  //   const responseImage =  cloudinary.uploader.upload(image, {
-  //     folder: "TechnicianShop",
-  //     public_id: `${image}-${title}-${index}`,
-  //   });
-  //   return responseImage.secure_url
-  // });
+  if (
+    !title ||
+    !description ||
+    !price ||
+    !location ||
+    !area ||
+    !images ||
+    !mainImage
+  ) {
+    throw new BadRequestError("Please provide all values");
+  }
 
-  // const responseImages = await Promise.all(uploadImages);
-
-  const [ responseMainImage , responseImages ] = await Promise.all([
-    cloudinary.uploader.upload(mainImage,{
-      folder:"land_listing",
-      public_id: `${title}-mainImage`
+  const [responseMainImage, responseImages] = await Promise.all([
+    cloudinary.uploader.upload(mainImage, {
+      folder: "land_listing",
+      public_id: `${title}-mainImage`,
     }),
     Promise.all(
       images.map((image, index) =>
@@ -127,43 +124,51 @@ const createProperty = async (req, res) => {
           public_id: `${title}-${index}`,
         })
       )
-    )
-    // ).then((responseImages) =>
-    //   responseImages.map((responseImage) => responseImage.secure_url)
-    // ),
-  ])
+    ).then((responseImages) =>
+      responseImages.map((responseImage) => ({
+        url: responseImage.secure_url,
+        public_id: responseImage.public_id,
+      }))
+    ),
+  ]);
 
+  const property = await Property.create({
+    title,
+    description,
+    price,
+    location,
+    area,
+    mainImage: {
+      url: responseMainImage.secure_url,
+      public_id: responseMainImage.public_id,
+    },
+    images: responseImages,
+  });
 
-  // const property = await Property.create({
-  //   title,
-  //   description,
-  //   price,
-  //   location,area,
-  //   imageUrls: responseImages
-  // })
-
-
-
-  res.status(StatusCodes.CREATED).json({success:true, responseImages, responseMainImage})
-
-
+  res.status(StatusCodes.CREATED).json({ success: true, property });
 };
 
-const deleteProperty=async(req, res)=>{
+const deleteProperty = async (req, res) => {
+  const { id } = req.params;
 
-  const {id } = req.params
+  const property = await Property.findById(id);
 
-  const property = await Property.findById(id)
-
-  
   if (!property) {
     throw new NotFoundError(`No property found matching the id:${id}`);
   }
+  await cloudinary.uploader.destroy(property.mainImage.public_id)
 
-  await property.deleteOne()
-  
-  res.status(StatusCodes.ACCEPTED).json({success:true})
+  for (const image of property.images) {
+    await cloudinary.uploader.destroy(image.public_id);
+   }
+  await property.deleteOne();
 
-}
+  res.status(StatusCodes.ACCEPTED).json({ success: true });
+};
 
-module.exports = { getAllProperties, getSingleProperty, deleteProperty,createProperty };
+module.exports = {
+  getAllProperties,
+  getSingleProperty,
+  deleteProperty,
+  createProperty,
+};

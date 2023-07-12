@@ -12,7 +12,7 @@ const router = express.Router();
 
 router.get("/", getAllProperties);
 router.get("/:id", getSingleProperty);
-router.post("/", authenticateUser ,authorizePermission('admin'), createProperty);
+router.post("/", createProperty);
 router.delete("/:id",authenticateUser, authorizePermission('admin'),deleteProperty )
 
 module.exports = router;
