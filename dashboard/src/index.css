@@ -452,7 +452,7 @@ Navbar
   position: sticky;
   top: 0;
   left: 0;
-  z-index: 1000;
+  z-index: 9999;
 }
 #content nav::before {
   content: "";
@@ -667,6 +667,7 @@ section {
   padding: 36px 24px;
   max-height: calc(100vh - 56px);
   overflow-y: auto;
+ 
 }
 
 .settings-header {
@@ -738,6 +739,137 @@ section {
   justify-content: center;
   margin: 1em;
 }
+/*
+=============== 
+properties
+===============
+*/
+/* .properties-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+} */
+th{
+ font-size: 1.2rem;
+ background: var(--blue-100);
+}
+td{
+  background: var(--white);
+  margin: 0;
+  border: none;
+  text-align: center;
+  padding: 0.2em 0.7em;
+  border-bottom: 1px solid black;
+}
+.table-edit-icon{
+  color: var(--green-dark);
+  cursor: pointer;
+
+}
+.table-delete-icon{
+  color: var(--red-dark);
+  cursor: pointer;
+
+}
+
+@media screen and (min-width:1000px) {
+  td{
+    padding: 0.3em 2em;
+  }
+  
+}
+/*
+=============== 
+Modal
+===============
+*/
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(17, 17, 17, 0.2);
+  display: grid;
+  place-items: center;
+  overflow-y: scroll;
+  transition: var(--transition);
+  z-index: 9999; /* if elements are taken out of a flow*/
+}
+.modal-container {
+  min-width: 300px;
+
+  padding: 0.5em;
+  background: var(--white);
+  border-radius: var(--borderRadius);
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-close {
+  align-self: flex-end;
+}
+.modal-close .properties__page-icon {
+  font-size: 2rem;
+}
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  gap: 1em;
+  padding: 0.1em 1em;
+}
+
+.modal-action-icon {
+  align-self: center;
+  background-color: var(--purple-200);
+  height: 4rem;
+  width: 4rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal-content h5 {
+  text-align: center;
+  max-width: 80%;
+}
+.modal-content h5 {
+  font-family: var(--bodyFont);
+  font-weight: 400;
+  align-self: center;
+}
+
+.close-btn {
+  background: var(--red-dark);
+  color: var(--white);
+}
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+.modal__input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+.modal__input-container input,
+.modal__input-container textarea {
+  background: #f1f1f1;
+  border: none;
+  padding: 0.5em 0.9em;
+  font-size: 1rem;
+  border-radius: 5px;
+  color: var(--black);
+}
+.modal-btn {
+  padding: 1em;
+  font-size: 1rem;
+  margin: 1em 0em;
+}
+
 
 /*
 =============== 
