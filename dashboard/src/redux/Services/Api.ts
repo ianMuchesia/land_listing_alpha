@@ -7,7 +7,8 @@ export const api  = createApi({
     baseQuery: fetchBaseQuery({baseUrl:`${baseURL}`}),
     reducerPath: "apis",
     tagTypes:[
-        "allProperties"
+        "allProperties",
+        "singleProperty",
     ],
     endpoints: (build)=>({
         getAllProperties: build.query({
@@ -17,9 +18,13 @@ export const api  = createApi({
                 params: {search , sort , location, numericFilters}
             }),
         providesTags: ["allProperties"]
-        })
+        }),
+        getSingleProperty:build.query({
+            query:(id:string)=>`properties/${id}`,
+            providesTags:["singleProperty"]
+        }),
     })
 })
 
 
-export const { useGetAllPropertiesQuery} = api 
+export const { useGetAllPropertiesQuery, useGetSinglePropertyQuery} = api 

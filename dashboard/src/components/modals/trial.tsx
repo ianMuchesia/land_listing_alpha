@@ -1,13 +1,8 @@
-import { typeProperties } from "../../@types/@types"
 
-interface Props{
-  property:typeProperties;
-}
-const Edit = ({property}:Props) => {
   return (
     <div className="modal-overlay">
-      <div className="modal-container">
-        <span className="modal-close">Close</span>
+      <div className="modal-container-edit">
+        <span className="modal-close" onClick={()=>setOpenEditModal(false)}>Close</span>
         <span className="property__page-icon">Edit</span>
         <div className="modal-content">
         <div className="form">

@@ -3,8 +3,8 @@ import BreadCrumb from "../../components/BreadCrumb";
 import { Icon } from '@iconify/react';
 import { useGetAllPropertiesQuery } from "../../redux/Services/Api";
 import { Loader } from "../../components";
-import { useState } from "react";
-import { Edit } from "../../components/modals";
+
+import { Link } from "react-router-dom";
 interface queryData {
   data: {
     nbHits: number;
@@ -17,7 +17,7 @@ interface queryData {
 
 const Properties = () => {
 
-  const [openEditModal , setOpenEditModal] = useState(false)
+  
 
   const { data, isLoading } = useGetAllPropertiesQuery<queryData>({
    
@@ -53,9 +53,9 @@ const Properties = () => {
               <td>{property.area}</td>
               <td>{property.location}</td>
               <td>Ksh.{property.price}</td>
-              <td className="table-edit-icon" onClick={()=>setOpenEditModal(true)}><Icon icon="material-symbols:edit" /></td>
+              <td className="table-edit-icon" ><Link to={`/properties/${property._id}`}><Icon icon="material-symbols:edit" /></Link></td>
               <td className="table-delete-icon"><Icon icon="ic:baseline-delete" /></td>
-              {openEditModal && <Edit property={property}/>}
+             
             </tr>
 
             ))}

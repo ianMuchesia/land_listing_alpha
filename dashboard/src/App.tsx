@@ -7,6 +7,8 @@ import Customers from './scenes/customers'
 import Settings from './scenes/settings'
 import Properties from './scenes/properties'
 import Requests from './scenes/requests'
+import Edit from './scenes/edit'
+
 
 function App() {
 
@@ -22,6 +24,8 @@ function App() {
         <Route path="/settings" element={<Settings/>}/>
         <Route path="/properties" element={<Properties/>}/>
         <Route path="/requests" element={<Requests/>}/>
+        <Route path="/properties/:propertyID" element={<Edit/>}/>
+
 
       </Routes>
       </div>

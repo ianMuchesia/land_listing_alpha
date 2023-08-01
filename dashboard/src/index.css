@@ -873,6 +873,22 @@ Modal
 
 /*
 =============== 
+Edit-Modal
+===============
+*/
+.modal-container-edit {
+ width: 90vw;
+ height:60vw;
+
+  padding: 0.5em;
+  background: var(--white);
+  border-radius: var(--borderRadius);
+  display: flex;
+  flex-direction: column;
+}
+
+/*
+=============== 
 Loader
 ===============
 */
