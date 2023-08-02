@@ -4,6 +4,10 @@ export interface userAuth {
   role: string;
 }
 
+export interface typeImage{
+  url:string;
+}
+
 export interface typeProperties {
   _id: string;
   title: string;
@@ -11,8 +15,8 @@ export interface typeProperties {
   price: number;
   category: string;
   area: number;
-  mainImage:string;
-  images: string[];
+  mainImage:typeImage;
+  images: typeImage[];
   location: string;
 }
 export type PaginationState = {

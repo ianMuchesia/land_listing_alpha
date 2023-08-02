@@ -100,6 +100,8 @@ const createProperty = async (req, res) => {
   const { title, description, price, location, area, images, mainImage } =
     req.body;
 
+   
+
   if (
     !title ||
     !description ||
@@ -107,19 +109,19 @@ const createProperty = async (req, res) => {
     !location ||
     !area ||
     !images ||
-    !mainImage
+    !mainImage.url
   ) {
     throw new BadRequestError("Please provide all values");
   }
 
   const [responseMainImage, responseImages] = await Promise.all([
-    cloudinary.uploader.upload(mainImage, {
+    cloudinary.uploader.upload(mainImage.url, {
       folder: "land_listing",
       public_id: `${title}-mainImage`,
     }),
     Promise.all(
       images.map((image, index) =>
-        cloudinary.uploader.upload(image, {
+        cloudinary.uploader.upload(image.url, {
           folder: "land_listing",
           public_id: `${title}-${index}`,
         })
@@ -131,6 +133,8 @@ const createProperty = async (req, res) => {
       }))
     ),
   ]);
+
+  console.log(responseImages, responseMainImage)
 
   const property = await Property.create({
     title,

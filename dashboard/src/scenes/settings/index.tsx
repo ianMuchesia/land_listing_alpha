@@ -24,8 +24,10 @@ const navigate = useNavigate()
     price: 0,
     description: "",
     location: "",
-    mainImage: "",
-    images: [""],
+    mainImage: {
+      url:""
+    },
+    images: [{url:""}],
   });
 
   const handleSubmit = async(e: React.FormEvent) => {
@@ -43,7 +45,7 @@ dispatch(setFormLoader())
   try {
    const {data}= await axios.post(`${baseURL}/properties`,  {
       title,
-      area, price, description, location, mainImage, images:images.slice(1)
+      area, price, description, location, mainImage, images,
     },  { withCredentials: true, timeout: 60000 })
     dispatch(setCloseLoader());
     toast.success("Created successful!");
@@ -56,8 +58,8 @@ console.log(data)
       price: 0,
       description: "",
       location: "",
-      mainImage: "",
-      images: [""],
+      mainImage: {url:""},
+      images: [{url:""}],
      })
      
    
