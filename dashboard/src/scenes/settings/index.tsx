@@ -8,6 +8,7 @@ import axios from "axios";
 import { baseURL } from "../../baseURL";
 import { setCloseLoader, setFormLoader } from "../../redux/Features/loadSlice";
 import { useNavigate } from "react-router-dom";
+import { Location } from "../../components/modals";
 
 
 const Settings = () => {
@@ -17,6 +18,7 @@ const navigate = useNavigate()
 
   const loader = useAppSelector((state) => state.load.formLoader);
 
+  
 
   const [createForm, setCreateForm] = useState({
     title: "",
@@ -29,6 +31,8 @@ const navigate = useNavigate()
     },
     images: [{url:""}],
   });
+
+  const [ openModal , setOpenModal] = useState(false)
 
   const handleSubmit = async(e: React.FormEvent) => {
     e.preventDefault();
@@ -89,8 +93,9 @@ console.log(data)
 <ToastContainer/>
       <form action="" className="settings-container" onSubmit={handleSubmit}>
         <div className="settings-header">
-          <button className="btn">Edit A Property</button>
+          <button className="btn" onClick={()=>setOpenModal(true)} type="button">Add Locations</button>
           <button className="btn">Delete A Property</button>
+         
         </div>
 
         <AddProperty setCreateForm={setCreateForm} createForm={createForm} />
@@ -102,6 +107,7 @@ console.log(data)
         {loader && <Loader />}
         <button className="btn btn-right ">ADD PROPERTY</button>
       </form>
+      {openModal && <Location setOpenModal={setOpenModal}/>}
     </section>
   );
 };

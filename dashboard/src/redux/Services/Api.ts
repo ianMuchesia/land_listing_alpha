@@ -23,6 +23,7 @@ export const api  = createApi({
             query:(id:string)=>`properties/${id}`,
             providesTags:["singleProperty"]
         }),
+        
     })
 })
 

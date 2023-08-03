@@ -23,6 +23,21 @@ export type PaginationState = {
   currentPage: number;
 };
 
+interface Location{
+  
+    name:string;
+    _id:string;
+  
+}
+export interface typeLocation{
+  data:{};
+  locations:Location[];
+  
+  
+
+  error:any;
+}
+
 export type PaginationAction =
   | { type: "SET_CURRENT_PAGE"; payload: number }
   | { type: "NEXT_PAGE" }

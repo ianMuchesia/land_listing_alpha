@@ -1,3 +1,6 @@
+import useSWR from "swr";
+import { baseURL } from "../baseURL";
+import { typeLocation } from "../@types/@types";
 
 interface Props {
   createForm: {
@@ -22,7 +25,15 @@ interface Props {
   >;
 }
 
+const fetcher = async (...args: Parameters<typeof fetch>): Promise<any> => {
+  const response = await fetch(...args);
+  return response.json();
+};
 const AddProperty = ({ setCreateForm, createForm }: Props) => {
+
+  const {data , error} = useSWR<typeLocation>(`${baseURL}/location`, fetcher)
+  
+ 
   const handleChange = (
     e:
       | React.ChangeEvent<HTMLInputElement>
@@ -98,8 +109,11 @@ const AddProperty = ({ setCreateForm, createForm }: Props) => {
           className="form-input"
         >
           <option value="">--please select--</option>
-          <option value="Kizingo">Kizingo</option>
-          <option value="Likoni">Likoni</option>
+         {data?.locations && data?.locations.map(location=>(
+           <option value={location._id} key={location._id}>{location.name}</option>
+         
+         ))}
+         {error && <option value="">{error}</option>}
         </select>
       </div>
     </div>
