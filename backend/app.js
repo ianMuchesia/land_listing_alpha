@@ -22,6 +22,7 @@ const connectDB = require("./database/connectDB");
 const authRouter = require("./routes/authRoutes");
 const propertyRouter = require("./routes/propertyRoutes");
 const communicationRouter = require("./routes/communicationRoutes");
+const locationRouter = require("./routes/locationRoutes");
 
 //middleware
 const notFoundMiddleWare = require("./middleware/not-found");
@@ -49,6 +50,7 @@ app.use(express.json());
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/properties", propertyRouter);
 app.use("/api/v1/communication", communicationRouter);
+app.use("/api/v1/location", locationRouter);
 
 app.use(errorHandlerMiddleWare);
 app.use(notFoundMiddleWare);

@@ -8,6 +8,7 @@ import axios from "axios";
 import { baseURL } from "../../baseURL";
 import { setCloseLoader, setFormLoader } from "../../redux/Features/loadSlice";
 import { useNavigate } from "react-router-dom";
+import { Location } from "../../components/modals";
 
 
 const Settings = () => {
@@ -17,6 +18,7 @@ const navigate = useNavigate()
 
   const loader = useAppSelector((state) => state.load.formLoader);
 
+  
 
   const [createForm, setCreateForm] = useState({
     title: "",
@@ -24,15 +26,19 @@ const navigate = useNavigate()
     price: 0,
     description: "",
     location: "",
-    mainImage: "",
-    images: [""],
+    mainImage: {
+      url:""
+    },
+    images: [{url:""}],
   });
+
+  const [ openModal , setOpenModal] = useState(false)
 
   const handleSubmit = async(e: React.FormEvent) => {
     e.preventDefault();
   const { title, area , price , description, location, mainImage, images} = createForm
 
-  if(!title || !area || !price ||!description||!location||!mainImage||images.length < 3 ){
+  if(!title || !area || !price ||!description||!location||!mainImage||images.length < 2 ){
     toast.warning("please fill all the inputs")
     return
   }
@@ -43,10 +49,10 @@ dispatch(setFormLoader())
   try {
    const {data}= await axios.post(`${baseURL}/properties`,  {
       title,
-      area, price, description, location, mainImage, images:images.slice(1)
+      area, price, description, location, mainImage, images,
     },  { withCredentials: true, timeout: 60000 })
     dispatch(setCloseLoader());
-    toast.success("Created successful!");
+    toast.success("Created successfully!");
 console.log(data)
     setTimeout(() => {
      navigate("/properties")
@@ -56,8 +62,8 @@ console.log(data)
       price: 0,
       description: "",
       location: "",
-      mainImage: "",
-      images: [""],
+      mainImage: {url:""},
+      images: [{url:""}],
      })
      
    
@@ -87,8 +93,9 @@ console.log(data)
 <ToastContainer/>
       <form action="" className="settings-container" onSubmit={handleSubmit}>
         <div className="settings-header">
-          <button className="btn">Edit A Property</button>
+          <button className="btn" onClick={()=>setOpenModal(true)} type="button">Add Locations</button>
           <button className="btn">Delete A Property</button>
+         
         </div>
 
         <AddProperty setCreateForm={setCreateForm} createForm={createForm} />
@@ -100,6 +107,7 @@ console.log(data)
         {loader && <Loader />}
         <button className="btn btn-right ">ADD PROPERTY</button>
       </form>
+      {openModal && <Location setOpenModal={setOpenModal}/>}
     </section>
   );
 };
