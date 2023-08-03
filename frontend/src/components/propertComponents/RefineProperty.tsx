@@ -35,10 +35,11 @@ const RefineProperty = ({ property }: Props) => {
     }));
   };
 
+  console.log(property)
   return (
     <div className="properties__page-card">
       <div className="properties__page-image-container">
-        <img src={property.imageUrls[0]} alt="property-image" className="properties__page-main-image" />
+        <img src={property.mainImage.url} alt="property-image" className="properties__page-main-image" />
         <span className="properties__page-absolute-span"><Icon icon="ic:baseline-favorite"  className="properties__page-icon"/></span>
       </div>
       <div className="properties__page-other-images">
@@ -47,13 +48,13 @@ const RefineProperty = ({ property }: Props) => {
         <img src="" alt="" />
       </div>
       <div className="properties__page-card-contents">
-        <h5>{property.area}m<sup>2</sup> Land at {property.location}</h5>
+        <h5>{property.area}m<sup>2</sup> Land at {property.location.name}</h5>
         <p>Ksh. {property.price.toLocaleString()}</p>
         <p>
           <span>{property.title}</span>
           
         </p>
-        <p><span><Icon icon="ion:location" />{property.location}</span></p>
+        <p><span><Icon icon="ion:location" />{property.location.name}</span></p>
         <p className="property__page-description">
           {property.description}
         </p>
