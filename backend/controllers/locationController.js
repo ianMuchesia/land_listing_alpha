@@ -16,4 +16,11 @@ const createLocation = async (req, res) => {
   res.status(StatusCodes.CREATED).json({ success: true, location:newLocation });
 };
 
-module.exports = { createLocation };
+const getAllLocations = async(req, res)=>{
+
+  const locations = await Location.find({})
+
+  res.status(StatusCodes.OK).json({locations})
+}
+
+module.exports = { createLocation, getAllLocations };

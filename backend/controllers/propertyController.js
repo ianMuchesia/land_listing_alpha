@@ -14,7 +14,11 @@ cloudinary.config({
 const getSingleProperty = async (req, res) => {
   const { id } = req.params;
 
-  const property = await Property.findById(id);
+  const property = await Property.findById(id).populate({
+    path:"location",
+    select:"name",
+  });
+;
 
   if (!property) {
     throw new NotFoundError(`No property found matching the id:${id}`);
@@ -67,7 +71,10 @@ const getAllProperties = async (req, res) => {
     });
   }
 
-  let result = Property.find(queryObject);
+  let result = Property.find(queryObject).populate({
+    path:"location",
+    select:"name",
+  });
 
   const totalItems = await Property.find(queryObject).countDocuments();
 

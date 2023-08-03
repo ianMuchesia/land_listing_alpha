@@ -1,15 +1,19 @@
 const mongoose = require("mongoose");
-const { NotFoundError } = require("../errors");
+
 
 const Schema = mongoose.Schema;
 
 const RequestSchema = new Schema(
   {
-    customer: {
-      type: Schema.Types.ObjectId,
-      ref: "Customer",
+    name: {
+      type: String,
       required: true,
     },
+    phone: {
+      type: String,
+      required: true,
+    },
+
     property: {
       type: Schema.Types.ObjectId,
       ref: "Property",
@@ -18,6 +22,11 @@ const RequestSchema = new Schema(
     message: {
       type: String,
       default: "No Message",
+    },
+    requestType: {
+      type: [String],
+      enum: ["phone", "sms", "whatsapp"],
+      required: true
     },
   },
   { timestamps: true }

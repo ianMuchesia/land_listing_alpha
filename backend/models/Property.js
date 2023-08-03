@@ -18,7 +18,7 @@ const PropertySchema = new Schema(
     },
     location: {
       type: Schema.Types.ObjectId,
-      ref: "Customer",
+      ref: "Location",
       required: true,
     },
     area: {
