@@ -1,5 +1,5 @@
 const express = require('express')
-const { sms, phoneCall, whatsapp, getPhones } = require('../controllers/communicationController')
+const { sms, phoneCall, whatsapp, getAllRequests} = require('../controllers/communicationController')
 
 const router = express.Router()
 
@@ -7,7 +7,8 @@ const router = express.Router()
 router.post('/sms', sms)
 router.post('/phone', phoneCall)
 router.post('/whatsapp', whatsapp)
-router.get('/phone', getPhones)
+router.get('/', getAllRequests)
+
 
 
 module.exports = router
