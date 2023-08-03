@@ -869,23 +869,19 @@ Modal
   font-size: 1rem;
   margin: 1em 0em;
 }
-
+.logout-btn-container {
+  display: flex;
+  gap: 1em;
+  align-items: center;
+  justify-content: space-evenly;
+}
 
 /*
 =============== 
 Edit-Modal
 ===============
 */
-.modal-container-edit {
- width: 90vw;
- height:60vw;
 
-  padding: 0.5em;
-  background: var(--white);
-  border-radius: var(--borderRadius);
-  display: flex;
-  flex-direction: column;
-}
 
 /*
 =============== 

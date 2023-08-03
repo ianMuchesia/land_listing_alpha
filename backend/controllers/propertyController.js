@@ -96,6 +96,10 @@ const getAllProperties = async (req, res) => {
   });
 };
 
+
+
+
+
 const createProperty = async (req, res) => {
   const { title, description, price, location, area, images, mainImage } =
     req.body;
@@ -134,7 +138,7 @@ const createProperty = async (req, res) => {
     ),
   ]);
 
-  console.log(responseImages, responseMainImage)
+  
 
   const property = await Property.create({
     title,
@@ -151,6 +155,86 @@ const createProperty = async (req, res) => {
 
   res.status(StatusCodes.CREATED).json({ success: true, property });
 };
+
+
+
+
+const updateProperty = async (req, res)=>{
+  const { id } = req.params;
+  const { title, description, price, location, area, images, mainImage } =
+  req.body;
+
+ 
+
+if (
+  !title ||
+  !description ||
+  !price ||
+  !location ||
+  !area ||
+  !images ||
+  !mainImage.url
+) {
+  throw new BadRequestError("Please provide all values");
+}
+
+
+const property = await Property.findById(id);
+
+if (!property) {
+  throw new NotFoundError(`No property found matching the id:${id}`);
+}
+
+await cloudinary.uploader.destroy(property.mainImage.public_id)
+
+for (const image of property.images) {
+  await cloudinary.uploader.destroy(image.public_id);
+ }
+
+
+
+ const [responseMainImage, responseImages] = await Promise.all([
+  cloudinary.uploader.upload(mainImage.url, {
+    folder: "land_listing",
+    public_id: `${title}-mainImage`,
+  }),
+  Promise.all(
+    images.map((image, index) =>
+      cloudinary.uploader.upload(image.url, {
+        folder: "land_listing",
+        public_id: `${title}-${index}`,
+      })
+    )
+  ).then((responseImages) =>
+    responseImages.map((responseImage) => ({
+      url: responseImage.secure_url,
+      public_id: responseImage.public_id,
+    }))
+  ),
+]);
+
+// Update properties on the document instance
+property.title = title;
+property.description = description;
+property.price = price;
+property.location = location;
+property.area = area;
+property.mainImage.url = responseMainImage.secure_url;
+property.mainImage.public_id = responseMainImage.public_id;
+property.images = responseImages;
+
+// Save the changes to the database
+await property.save();
+console.log("success")
+
+res.status(StatusCodes.CREATED).json({ success: true, property });
+
+}
+
+
+
+
+
 
 const deleteProperty = async (req, res) => {
   const { id } = req.params;
@@ -175,4 +259,5 @@ module.exports = {
   getSingleProperty,
   deleteProperty,
   createProperty,
+  updateProperty,
 };

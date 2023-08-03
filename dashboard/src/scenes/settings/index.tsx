@@ -34,7 +34,7 @@ const navigate = useNavigate()
     e.preventDefault();
   const { title, area , price , description, location, mainImage, images} = createForm
 
-  if(!title || !area || !price ||!description||!location||!mainImage||images.length < 3 ){
+  if(!title || !area || !price ||!description||!location||!mainImage||images.length < 2 ){
     toast.warning("please fill all the inputs")
     return
   }
@@ -48,7 +48,7 @@ dispatch(setFormLoader())
       area, price, description, location, mainImage, images,
     },  { withCredentials: true, timeout: 60000 })
     dispatch(setCloseLoader());
-    toast.success("Created successful!");
+    toast.success("Created successfully!");
 console.log(data)
     setTimeout(() => {
      navigate("/properties")

@@ -51,7 +51,7 @@ const handleSubmit = async(e: React.FormEvent) => {
   e.preventDefault();
 const { title, area , price , description, location, mainImage, images} = createForm
 
-if(!title || !area || !price ||!description||!location||!mainImage||images.length < 3 ){
+if(!title || !area || !price ||!description||!location||!mainImage||images.length < 2 ){
   toast.warning("please fill all the inputs")
   return
 }
@@ -60,12 +60,12 @@ if(!title || !area || !price ||!description||!location||!mainImage||images.lengt
 
 dispatch(setFormLoader())
 try {
- const {data}= await axios.post(`${baseURL}/properties`,  {
+ const {data}= await axios.patch(`${baseURL}/properties/${propertyID}`,  {
     title,
     area, price, description, location, mainImage, images,
   },  { withCredentials: true, timeout: 60000 })
   dispatch(setCloseLoader());
-  toast.success("Created successful!");
+  toast.success("Updated successfully!");
 console.log(data)
   setTimeout(() => {
    navigate("/properties")
@@ -106,7 +106,7 @@ console.log(data)
    <section>
     <BreadCrumb title="Edit Properties" link="/properties" />
     <ToastContainer/>
-    {loading && <Loader/>} 
+  
       <form action="" className="settings-container" onSubmit={handleSubmit} >
         <div className="settings-header">
         
@@ -118,7 +118,7 @@ console.log(data)
           setCreateForm={setCreateForm}
         />
        
-       
+       {loading && <Loader/>} 
         <button className="btn btn-right ">EDIT PROPERTY</button>
       </form>
    </section>

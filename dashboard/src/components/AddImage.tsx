@@ -45,7 +45,7 @@ const AddImage = ({ mainImage, setCreateForm, images }: Props) => {
         const updatedImages = prevForm.images.filter((img) => img.url !== "");
         return {
         ...prevForm,
-        images: [...updatedImages, { url: reader.result as string }],
+        images: [ { url: reader.result as string },...updatedImages],
       }});
     };
     reader.readAsDataURL(file as Blob);
@@ -57,8 +57,8 @@ const AddImage = ({ mainImage, setCreateForm, images }: Props) => {
       <div className="all-images-container">
         <div className="image-input-container">
           <h5>Main Image</h5>
-          {mainImage.url ? (
-            <img src={mainImage.url} className="inputed-image" />
+          {mainImage?.url ? (
+            <img src={mainImage?.url} className="inputed-image" />
           ) : (
             <div className="no-image-container">
               <h6>No image uploaded</h6>
@@ -77,7 +77,7 @@ const AddImage = ({ mainImage, setCreateForm, images }: Props) => {
         <div className="image-input-container">
           <h5> Image 2</h5>
           {images[0]?.url ? (
-            <img src={images[0].url} className="inputed-image" />
+            <img src={images[0]?.url} className="inputed-image" />
           ) : (
             <div className="no-image-container">
               <h6>No image uploaded</h6>
@@ -96,7 +96,7 @@ const AddImage = ({ mainImage, setCreateForm, images }: Props) => {
         <div className="image-input-container">
           <h5>Image 3</h5>
           {images[1]?.url ? (
-            <img src={images[1].url} className="inputed-image" />
+            <img src={images[1]?.url} className="inputed-image" />
           ) : (
             <div className="no-image-container">
               <h6>No image uploaded</h6>
