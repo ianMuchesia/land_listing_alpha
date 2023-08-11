@@ -88,7 +88,7 @@ const whatsapp = async (req, res) => {
 };
 
 const getAllRequests = async(req, res)=>{
-  const { property , phone , search , sort, requestType } =req.query
+  const { property , phone , search , sort, requestType, page } =req.query
 
   const queryObject = {}
 
@@ -110,7 +110,11 @@ const getAllRequests = async(req, res)=>{
   }
   
 
-  let result = Request.find(queryObject);
+  let result = Request.find(queryObject).populate({
+    path:"property",
+    select:'title price',
+
+  });
 
   const totalItems = await Request.find(queryObject).countDocuments();
 
@@ -135,9 +139,11 @@ const getAllRequests = async(req, res)=>{
   res.status(StatusCodes.OK).json({
     requests,
     nbHits: requests.length,
-    totalProperties: totalItems,
+    totalRequests: totalItems,
   });
 
 }
+
+
 
 module.exports = { whatsapp, phoneCall, sms, getAllRequests };
