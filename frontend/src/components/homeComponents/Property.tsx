@@ -19,7 +19,7 @@ const Property = ({ property }: Props) => {
       <div className="property-contents">
       <p className="property-name">{property.title}</p>
      <p className="property-area"><span><Icon icon="bx:area" />Area:</span>{property.area}m<sup>2</sup></p>
-     {/* <p className="property-location"><span><Icon icon="carbon:location" /></span>{property.location}</p> */}
+     <p className="property-location"><span><Icon icon="carbon:location" /></span>{property.location.name}</p>
       <p className="property-price">Ksh.{property.price.toLocaleString()}</p>
       </div>
       </div>

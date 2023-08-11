@@ -21,7 +21,7 @@ export default function Home({ properties }: Props) {
   }, []);
 
   //console.log(`${process.env.NEXT_PUBLIC_BACKEND_URL}`)
-  console.log(properties)
+
   return (
     <>
       <Head>
