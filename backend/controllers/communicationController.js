@@ -105,6 +105,9 @@ const getAllRequests = async(req, res)=>{
     queryObject.phone = phone
   }
 
+  if(search){
+    queryObject.name = {$regex:search , $options: "i"}
+  }
   
 
   let result = Request.find(queryObject);
@@ -116,6 +119,14 @@ const getAllRequests = async(req, res)=>{
     result = result.sort(sortArray);
   } else {
     result = result.sort("createdAt");
+  }
+
+  if(page){
+    const pagination = Number(page);
+    const limit = Number(req.query.limit) || 10;
+    const skip = (pagination - 1) * limit;
+
+    result = result.skip(skip).limit(limit);
   }
 
 
