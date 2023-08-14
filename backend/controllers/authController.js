@@ -25,7 +25,7 @@ const register = async(req, res)=>{
 
     attachCookiesToResponse({res, user:tokenUser})
     
-    res.status(StatusCodes.CREATED).json({user:tokenUser})
+    res.status(StatusCodes.CREATED).json({user:tokenUser , success:true})
 
 
 }
@@ -55,7 +55,7 @@ const login = async(req, res)=>{
 
    attachCookiesToResponse({res, user:tokenUser})
 
-   res.status(StatusCodes.ACCEPTED).json({user:tokenUser})
+   res.status(StatusCodes.ACCEPTED).json({user:tokenUser , success:true})
 }
 
 

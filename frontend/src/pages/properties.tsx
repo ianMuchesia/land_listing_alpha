@@ -138,6 +138,7 @@ let totalPages = Math.ceil(data?.totalProperties / 8);
             currentPage={currentPage}
           />}
         </div>
+        
       </main>
     </>
   );

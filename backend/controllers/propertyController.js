@@ -38,7 +38,7 @@ const getAllProperties = async (req, res) => {
   }
 
   if (location) {
-    queryObject.location = location;
+    queryObject.location ={ _id:location};
   }
 
   if (search) {
