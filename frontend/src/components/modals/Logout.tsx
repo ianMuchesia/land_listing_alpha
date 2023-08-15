@@ -20,7 +20,8 @@ const Logout = ({ setLogoutModal }: Props) => {
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/logout`, {withCredentials:true}
       );
 
-      if(data.success){
+      console.log(data)
+     
       setTimeout(() => {
        
         // toast.success("Logout successful!");
@@ -29,7 +30,7 @@ const Logout = ({ setLogoutModal }: Props) => {
         router.push("/");
         setLogoutModal(false);
       }, 1000);
-    }
+    
     } catch (error:any) {
        
         if (error.response?.data?.msg) {
