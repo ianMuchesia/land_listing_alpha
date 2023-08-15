@@ -60,10 +60,10 @@ const login = async(req, res)=>{
 
 
 const logout = async(req, res)=>{
-    
+    console.log(res.cookie)
     res.cookie("token", "logout", {
         httpOnly: true,
-        expires: new Date(Date.now() + 1000), //expiresin one second
+        expires: new Date(Date.now(0)), //expires immediately
       });
       res.status(StatusCodes.OK).json({ success: true, msg: "user logged out!" });
 }
