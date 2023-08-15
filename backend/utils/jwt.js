@@ -11,20 +11,21 @@ const createJWT = ({ payload }) => {
 const isTokenValid = ({ token }) => jwt.verify(token, process.env.JWT_SECRET);
 
 
-
 const attachCookiesToResponse = ({ res, user }) => {
-    const token = createJWT({ payload: user });
-  
-    const twoDays = 1000 * 60 * 60 * 24*2;
-  
-    res.cookie('token', token, {
-      httpOnly: true,
-      expires: new Date(Date.now() + twoDays),
-      secure:  process.env.NODE_ENV === 'production',
-      signed: true,
-      sameSite:"none", //because of different hosting environment
-    });
-  };
+  // Create a JWT token using user payload
+  const token = createJWT({ payload: user });
+
+  // Calculate the expiration time (2 days in milliseconds)
+  const twoDays = 1000 * 60 * 60 * 24 * 2;
+
+  // Attach the token as a cookie to the response
+  res.cookie('token', token, {
+    httpOnly: true,
+    expires: new Date(Date.now() + twoDays),
+    signed: true, // Sign the cookie value
+    sameSite: "none", // Set appropriate SameSite value
+  });
+};
 
 
   module.exports = {
