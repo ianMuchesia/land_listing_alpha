@@ -23,7 +23,7 @@ const attachCookiesToResponse = ({ res, user }) => {
     httpOnly: true,
     expires: new Date(Date.now() + twoDays),
     signed: true, // Sign the cookie value
-    sameSite: "none", // Set appropriate SameSite value
+    secure: process.env.NODE_ENV === 'production',
   });
 };
 
