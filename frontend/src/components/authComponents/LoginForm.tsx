@@ -44,7 +44,7 @@ const LoginForm = () => {
           email,
           password,
         },
-        { withCredentials: true, timeout: 5000 }
+        { withCredentials: true,  }
       );
       dispatch(setCloseLoader());
       toast.success("Login successful!");
@@ -60,12 +60,7 @@ const LoginForm = () => {
     } catch (error: any) {
       dispatch(setCloseLoader());
       console.log(error);
-      console.log(error);
-      if (error.code === "ECONNABORTED") {
-        // handle timeout error
-        toast.error("Request timed out. Please check your connection.");
-        return;
-      }
+    
       if (error.response?.data?.msg) {
         toast.error(error.response.data.msg);
         return;
